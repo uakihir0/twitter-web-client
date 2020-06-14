@@ -1,6 +1,8 @@
-<img src="./resource/img/twitterwebclient.png" width="400">[![](https://jitpack.io/v/uakihir0/twitter-web-client.svg)](https://jitpack.io/#uakihir0/twitter-web-client)
+<img src="./resource/img/twitterwebclient.png" width="400">
 
 ---
+
+[![](https://jitpack.io/v/uakihir0/twitter-web-client.svg)](https://jitpack.io/#uakihir0/twitter-web-client)
 
 Twitter Web Client is client library to call twitter web api to written in java. 
 This will be able to compile with [google/j2objc] to Objective-C library. (iOS, Mac OS)
