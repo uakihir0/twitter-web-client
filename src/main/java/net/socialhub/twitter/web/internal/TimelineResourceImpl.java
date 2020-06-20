@@ -7,6 +7,7 @@ import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.utility.Token;
 
+import static net.socialhub.twitter.web.utility.Endpoint.UserMediaTimeline;
 import static net.socialhub.twitter.web.utility.Endpoint.UserTimeline;
 import static net.socialhub.twitter.web.utility.Endpoint.UserTweetLiked;
 import static net.socialhub.twitter.web.utility.Endpoint.UserTweetRetweeted;
@@ -39,6 +40,15 @@ public class TimelineResourceImpl extends AbstractResource implements TimelineRe
             SpecifiedTweetRequest request) {
 
         String path = UserTweetRetweeted.path();
+        return get(path, request, TopLevel.class);
+    }
+
+    @Override
+    public Response<TopLevel> getUserMediaTimeline(
+            UserTimelineRequest request) {
+
+        String path = UserMediaTimeline.path()
+                .replaceAll("\\{userId}", request.getUserId());
         return get(path, request, TopLevel.class);
     }
 }

@@ -8,6 +8,10 @@ public enum Endpoint {
 
     UserTweetRetweeted("/2/timeline/retweeted_by.json"),
 
+    UserMediaTimeline("/2/timeline/media/{userId}.json"),
+
+    TweetConversation("/2/timeline/conversation/{tweetId}.json"),
+
     ;
 
     private String path;
