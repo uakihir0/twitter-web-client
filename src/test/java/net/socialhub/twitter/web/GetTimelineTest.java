@@ -51,4 +51,13 @@ public class GetTimelineTest extends AbstractTest {
         client.timeline().getUsersLikedBy(request);
         client.timeline().getUsersRetweetedBy(request);
     }
+
+    @Test
+    public void testTweetConversation() {
+        TwitterWebClient client = new TwitterWebClient.Builder().build();
+        SpecifiedTweetRequest request = new SpecifiedTweetRequest();
+        request.setTweetId("1272741649270165504");
+
+        client.timeline().getTweetConversation(request);
+    }
 }

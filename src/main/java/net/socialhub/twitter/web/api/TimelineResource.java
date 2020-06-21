@@ -34,7 +34,9 @@ public interface TimelineResource {
     Response<TopLevel> getUserMediaTimeline(UserTimelineRequest request);
 
     /**
-     *
+     * Get Tweet's Conversation.
+     * (Only for public tweets)
+     * 特定ツイートの会話を取得
      */
     Response<TopLevel> getTweetConversation(SpecifiedTweetRequest request);
 }

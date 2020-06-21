@@ -110,18 +110,16 @@ public class ExtendedMedia extends Media {
         // endregion
     }
 
+    /**
+     * TODO:
+     * r: {}
+     */
     public static class MediaStats {
 
-        @SerializedName("r")
-        private String r;
         @SerializedName("ttl")
         private Float ttl;
 
         // region
-        public String getR() {
-            return r;
-        }
-
         public Float getTtl() {
             return ttl;
         }
