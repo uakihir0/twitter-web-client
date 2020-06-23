@@ -4,7 +4,7 @@ import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
 import org.junit.Test;
 
-public class GetTimelineTest extends AbstractTest {
+public class GetTweetTest extends AbstractTest {
 
     @Test
     public void testGetUserTimeline() {
@@ -41,17 +41,7 @@ public class GetTimelineTest extends AbstractTest {
                     System.out.println("TEXT: " + v.getFullText());
                 });
     }
-
-    @Test
-    public void testUsersLikedRetweetedBy() {
-        TwitterWebClient client = new TwitterWebClient.Builder().build();
-        SpecifiedTweetRequest request = new SpecifiedTweetRequest();
-        request.setTweetId("1232157896453963776");
-
-        client.timeline().getUsersLikedBy(request);
-        client.timeline().getUsersRetweetedBy(request);
-    }
-
+    
     @Test
     public void testTweetConversation() {
         TwitterWebClient client = new TwitterWebClient.Builder().build();

@@ -5,7 +5,7 @@ import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 
-public interface TimelineResource {
+public interface TweetResource {
 
     /**
      * Get User's Timeline
@@ -14,17 +14,6 @@ public interface TimelineResource {
      */
     Response<TopLevel> getUserTimeline(UserTimelineRequest request);
 
-    /**
-     * Get Users who liked specified tweet.
-     * 特定ツイートをいいねしているユーザー一覧を取得
-     */
-    Response<TopLevel> getUsersLikedBy(SpecifiedTweetRequest request);
-
-    /**
-     * Get Users who retweeted specified tweet.
-     * 特定ツイートをリツイートしているユーザー一覧を取得
-     */
-    Response<TopLevel> getUsersRetweetedBy(SpecifiedTweetRequest request);
 
     /**
      * Get User's Media Timeline

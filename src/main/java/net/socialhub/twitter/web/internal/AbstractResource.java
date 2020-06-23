@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import net.socialhub.http.HttpRequestBuilder;
 import net.socialhub.http.HttpResponse;
 import net.socialhub.logger.Logger;
+import net.socialhub.twitter.web.entity.GraphRequest;
 import net.socialhub.twitter.web.entity.Request;
 import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.other.TwitterWebException;
@@ -13,14 +14,17 @@ import net.socialhub.twitter.web.utility.Token;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
+import static java.util.Collections.singletonMap;
 
 public abstract class AbstractResource {
 
     public static final Gson gson = new Gson();
     public static final Logger log = Logger.getLogger(AbstractResource.class);
 
-    private String baseUrl;
-    private Token token;
+    private final String baseUrl;
+    private final Token token;
 
     public AbstractResource(String baseUrl, Token token) {
         this.baseUrl = baseUrl;
@@ -31,8 +35,7 @@ public abstract class AbstractResource {
      * GET Request
      */
     public <T> Response<T> get(String path, Request request, Class<T> clazz) {
-
-        HttpRequestBuilder builder = new HttpRequestBuilder();
+        HttpRequestBuilder builder = getInitializedBuilder(path);
 
         // ヘッダー & パラメータ を作成
         Map<String, String> headers = getHeader();
@@ -40,12 +43,44 @@ public abstract class AbstractResource {
         Map<String, String> params = request.params();
         params.forEach(builder::param);
 
+        return get(builder, clazz);
+    }
+
+    /**
+     * GET Request (GraphQL Endpoint)
+     */
+    public <T> Response<T> graphGet(String path, GraphRequest request, Class<T> clazz) {
+        HttpRequestBuilder builder = getInitializedBuilder(path);
+
+        // ヘッダー & パラメータ を作成
+        Map<String, String> headers = getHeader();
+        headers.forEach(builder::header);
+        Map<String, Object> params = request.params();
+        Map<String, String> variables = singletonMap("variables", gson.toJson(params));
+        variables.forEach(builder::param);
+
+        return get(builder, clazz);
+    }
+
+    /**
+     * 初期設定済みのリクエストクライアントを作成
+     */
+    private HttpRequestBuilder getInitializedBuilder(String path) {
+        HttpRequestBuilder builder = new HttpRequestBuilder();
+
         // UA は設定済みなので上書き防止
         builder.userAgent(null);
 
         // パスの設定
         builder.target(baseUrl);
         builder.path(path);
+        return builder;
+    }
+
+    /**
+     * リクエストを送信
+     */
+    private <T> Response<T> get(HttpRequestBuilder builder, Class<T> clazz) {
 
         try {
             HttpResponse response = builder.get();
@@ -82,5 +117,9 @@ public abstract class AbstractResource {
     // トークンの表現を取得
     private String token() {
         return (token != null) ? token.get() : "";
+    }
+
+    private String graphToken() {
+        return UUID.randomUUID().toString();
     }
 }
