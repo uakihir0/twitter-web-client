@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import net.socialhub.http.HttpRequestBuilder;
 import net.socialhub.http.HttpResponse;
 import net.socialhub.logger.Logger;
-import net.socialhub.twitter.web.entity.GraphRequest;
+import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
 import net.socialhub.twitter.web.entity.Request;
 import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.other.TwitterWebException;
@@ -56,6 +56,7 @@ public abstract class AbstractResource {
         Map<String, String> headers = getHeader();
         headers.forEach(builder::header);
         Map<String, Object> params = request.params();
+        System.out.println(gson.toJson(params));
         Map<String, String> variables = singletonMap("variables", gson.toJson(params));
         variables.forEach(builder::param);
 

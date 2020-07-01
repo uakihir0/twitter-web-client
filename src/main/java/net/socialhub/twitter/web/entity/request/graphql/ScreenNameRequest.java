@@ -1,6 +1,4 @@
-package net.socialhub.twitter.web.entity.request;
-
-import net.socialhub.twitter.web.entity.GraphRequest;
+package net.socialhub.twitter.web.entity.request.graphql;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -15,18 +15,17 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     private UserResource user;
 
     public TwitterWebClientImpl(
-            String apiUrl,
-            String webUrl) {
+            String apiUrl) {
 
         this.uri = apiUrl;
-        this.token = Token.with(webUrl);
+        this.token = Token.with(apiUrl);
 
         this.timeline = new TweetResourceImpl(this.uri, this.token);
         this.user = new UserResourceImpl(this.uri, this.token);
     }
 
     public TwitterWebClientImpl() {
-        this(Const.DefaultApiUrl, Const.DefaultWebUrl);
+        this(Const.DefaultApiUrl);
     }
 
     @Override

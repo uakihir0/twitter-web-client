@@ -19,6 +19,9 @@ public class GraphUser {
     @SerializedName("legacy_extended_profile")
     private Profile legacyExtendedProfile;
 
+    @SerializedName("followers_timeline")
+    private GraphUserTimeline followersTimeline;
+
     // region
     public String getId() {
         return id;
@@ -34,6 +37,10 @@ public class GraphUser {
 
     public Profile getLegacyExtendedProfile() {
         return legacyExtendedProfile;
+    }
+    
+    public GraphUserTimeline getFollowersTimeline() {
+        return followersTimeline;
     }
     // endregion
 }
