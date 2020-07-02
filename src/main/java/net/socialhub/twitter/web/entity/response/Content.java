@@ -39,11 +39,17 @@ public class Content {
     public static class ContentRef {
 
         @SerializedName("tweet")
-        private TweetRef tweet;
+        private ItemRef tweet;
+        @SerializedName("user")
+        private ItemRef user;
 
         // region
-        public TweetRef getTweet() {
+        public ItemRef getTweet() {
             return tweet;
+        }
+
+        public ItemRef getUser() {
+            return user;
         }
         // endregion
     }
@@ -57,7 +63,7 @@ public class Content {
      * }
      * }
      */
-    public static class TweetRef {
+    public static class ItemRef {
 
         @SerializedName("id")
         private String id;

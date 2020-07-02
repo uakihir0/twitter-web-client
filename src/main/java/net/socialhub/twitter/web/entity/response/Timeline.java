@@ -15,5 +15,13 @@ public class Timeline {
     @SerializedName("instructions")
     private Instruction[] instructions;
 
+    // region
+    public String getId() {
+        return id;
+    }
 
+    public Instruction[] getInstructions() {
+        return instructions;
+    }
+    // endregion
 }

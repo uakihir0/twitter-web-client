@@ -2,7 +2,11 @@ package net.socialhub.twitter.web;
 
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
+import net.socialhub.twitter.web.entity.response.TopLevel;
+import net.socialhub.twitter.web.entity.response.Tweet;
 import org.junit.Test;
+
+import java.util.List;
 
 public class GetTweetTest extends AbstractTest {
 
@@ -12,16 +16,8 @@ public class GetTweetTest extends AbstractTest {
         UserTimelineRequest request = new UserTimelineRequest();
         request.setUserId("362220012");
 
-        client.timeline()
-                .getUserTimeline(request).get()
-                .getGlobalObjects()
-                .getTweets()
-                .forEach((k, v) -> {
-
-                    System.out.println("// ------------------------------------ //");
-                    System.out.println("ID  : " + v.getId());
-                    System.out.println("TEXT: " + v.getFullText());
-                });
+        TopLevel top = client.timeline().getUserTimeline(request).get();
+        top.toTweetTimeline().forEach(this::printTweet);
     }
 
     @Test
@@ -30,18 +26,10 @@ public class GetTweetTest extends AbstractTest {
         UserTimelineRequest request = new UserTimelineRequest();
         request.setUserId("362220012");
 
-        client.timeline()
-                .getUserMediaTimeline(request).get()
-                .getGlobalObjects()
-                .getTweets()
-                .forEach((k, v) -> {
-
-                    System.out.println("// ------------------------------------ //");
-                    System.out.println("ID  : " + v.getId());
-                    System.out.println("TEXT: " + v.getFullText());
-                });
+        TopLevel top = client.timeline().getUserMediaTimeline(request).get();
+        top.toTweetTimeline().forEach(this::printTweet);
     }
-    
+
     @Test
     public void testTweetConversation() {
         TwitterWebClient client = new TwitterWebClient.Builder().build();

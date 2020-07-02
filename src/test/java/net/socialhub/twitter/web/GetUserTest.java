@@ -4,6 +4,7 @@ import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.graphql.ScreenNameRequest;
 import net.socialhub.twitter.web.entity.request.graphql.UserIdRequest;
+import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.entity.response.graphql.GraphEntry;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
 import net.socialhub.twitter.web.internal.UserResourceImpl;
@@ -17,8 +18,14 @@ public class GetUserTest extends AbstractTest {
         SpecifiedTweetRequest request = new SpecifiedTweetRequest();
         request.setTweetId("1232157896453963776");
 
-        client.user().getUsersLikedBy(request);
-        client.user().getUsersRetweetedBy(request);
+        {
+            TopLevel top = client.user().getUsersLikedBy(request).get();
+            top.toUserTimeline().forEach(this::printUser);
+        }
+        {
+            TopLevel top = client.user().getUsersRetweetedBy(request).get();
+            top.toUserTimeline().forEach(this::printUser);
+        }
     }
 
     @Test
@@ -28,7 +35,7 @@ public class GetUserTest extends AbstractTest {
         request.setScreenName("uakihir0");
 
         Response<GraphRoot> root = client.user().getUserByScreenName(request);
-        System.out.println(root.get().getData().getUser().getLegacy().getName());
+        this.printUser(root.get().getData().getUser().getLegacy());
     }
 
     @Test
