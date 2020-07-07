@@ -30,6 +30,7 @@ public class TimelineRequest implements Request {
 
     private Integer skipStatus = 1;
     private Integer count = 20;
+    private String cursor = null;
 
     private String cardsPlatform = "Web-12";
     private String tweetMode = "extended";
@@ -62,6 +63,7 @@ public class TimelineRequest implements Request {
 
         put(params, "skip_status", skipStatus);
         put(params, "count", count);
+        put(params, "cursor", cursor);
 
         put(params, "cards_platform", cardsPlatform);
         put(params, "tweet_mode", tweetMode);
@@ -229,6 +231,14 @@ public class TimelineRequest implements Request {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public String getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
     }
 
     public String getCardsPlatform() {

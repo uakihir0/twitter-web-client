@@ -3,10 +3,7 @@ package net.socialhub.twitter.web;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
-import net.socialhub.twitter.web.entity.response.Tweet;
 import org.junit.Test;
-
-import java.util.List;
 
 public class GetTweetTest extends AbstractTest {
 
@@ -28,6 +25,23 @@ public class GetTweetTest extends AbstractTest {
 
         TopLevel top = client.timeline().getUserMediaTimeline(request).get();
         top.toTweetTimeline().forEach(this::printTweet);
+    }
+
+    @Test
+    public void testGetUserMediaTimelineCursorTest() {
+        TwitterWebClient client = new TwitterWebClient.Builder().build();
+        UserTimelineRequest request = new UserTimelineRequest();
+        request.setUserId("362220012");
+        request.setCount(1);
+        {
+            TopLevel top = client.timeline().getUserMediaTimeline(request).get();
+            top.toTweetTimeline().forEach(this::printTweet);
+            request.setCursor(top.getTBottomCursor());
+        }
+        {
+            TopLevel top = client.timeline().getUserMediaTimeline(request).get();
+            top.toTweetTimeline().forEach(this::printTweet);
+        }
     }
 
     @Test

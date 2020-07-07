@@ -6,10 +6,17 @@ public class Content {
 
     @SerializedName("item")
     private Item item;
+    @SerializedName("operation")
+    private Operation operation;
+
 
     // region
     public Item getItem() {
         return item;
+    }
+
+    public Operation getOperation() {
+        return operation;
     }
     // endregion
 

@@ -43,6 +43,32 @@ public class TopLevel {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get Top Cursor.
+     * If not found, return null.
+     */
+    public String getTopCursor() {
+        try {
+            List<Entry> entries = getEntities("cursor-top-");
+            return entries.get(0).getContent().getOperation().getCursor().getValue();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Get Bottom Cursor.
+     * If not found, return null.
+     */
+    public String getTBottomCursor() {
+        try {
+            List<Entry> entries = getEntities("cursor-bottom-");
+            return entries.get(0).getContent().getOperation().getCursor().getValue();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private List<Entry> getEntities(String prefix) {
         return Stream.of(timeline.getInstructions())
                 .filter(Objects::nonNull)
