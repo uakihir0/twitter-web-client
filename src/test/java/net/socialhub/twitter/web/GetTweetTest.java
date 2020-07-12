@@ -36,7 +36,7 @@ public class GetTweetTest extends AbstractTest {
         {
             TopLevel top = client.timeline().getUserMediaTimeline(request).get();
             top.toTweetTimeline().forEach(this::printTweet);
-            request.setCursor(top.getTBottomCursor());
+            request.setCursor(top.getBottomCursor());
         }
         {
             TopLevel top = client.timeline().getUserMediaTimeline(request).get();

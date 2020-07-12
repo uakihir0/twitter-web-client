@@ -60,7 +60,7 @@ public class TopLevel {
      * Get Bottom Cursor.
      * If not found, return null.
      */
-    public String getTBottomCursor() {
+    public String getBottomCursor() {
         try {
             List<Entry> entries = getEntities("cursor-bottom-");
             return entries.get(0).getContent().getOperation().getCursor().getValue();
