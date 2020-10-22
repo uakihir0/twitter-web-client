@@ -24,7 +24,7 @@ public class TweetResourceImpl extends AbstractResource implements TweetResource
             UserTimelineRequest request) {
 
         String path = UserTimeline.path()
-                .replaceAll("\\{userId}", request.getUserId());
+                .replace("{userId}", request.getUserId());
         return get(path, request, TopLevel.class);
     }
 
@@ -35,7 +35,7 @@ public class TweetResourceImpl extends AbstractResource implements TweetResource
             UserTimelineRequest request) {
 
         String path = UserMediaTimeline.path()
-                .replaceAll("\\{userId}", request.getUserId());
+                .replace("{userId}", request.getUserId());
         return get(path, request, TopLevel.class);
     }
 
@@ -44,7 +44,7 @@ public class TweetResourceImpl extends AbstractResource implements TweetResource
             SpecifiedTweetRequest request) {
 
         String path = TweetConversation.path()
-                .replaceAll("\\{tweetId}", request.getTweetId());
+                .replace("{tweetId}", request.getTweetId());
         return get(path, request, TopLevel.class);
     }
 }
