@@ -50,6 +50,7 @@ public class GetTweetTest extends AbstractTest {
         SpecifiedTweetRequest request = new SpecifiedTweetRequest();
         request.setTweetId("1272741649270165504");
 
-        client.timeline().getTweetConversation(request);
+        TopLevel top = client.tweet().getTweetConversation(request).get();
+        top.toTweetTimeline().forEach(this::printTweet);
     }
 }
