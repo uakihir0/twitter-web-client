@@ -15,6 +15,15 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 * Can access various APIs.
 * Easy to use.
 
+### APIs
+
+- [x] /2/timeline/profile/{userId}.json
+- [x] /2/timeline/liked_by.json
+- [x] /2/timeline/retweeted_by.json
+- [x] /2/timeline/media/{userId}.json
+- [x] /2/timeline/conversation/{tweetId}.json
+
+
 ## Install
 
 You can install via JitPack with gradle. Add the JitPack repository to your build file.
