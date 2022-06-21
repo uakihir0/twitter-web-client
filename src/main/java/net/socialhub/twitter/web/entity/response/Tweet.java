@@ -18,6 +18,8 @@ public class Tweet {
     private String createdAt;
     @SerializedName("full_text")
     private String fullText;
+    @SerializedName("text")
+    private String text;
 
     @SerializedName("display_text_range")
     private Integer[] displayTextRange;
@@ -57,6 +59,17 @@ public class Tweet {
     @SerializedName("possibly_sensitive_editable")
     private Boolean possiblySensitiveEditable;
 
+
+    /** FullText と Text は同一とみなす */
+    public String getFullText() {
+        return fullText != null ? fullText : text;
+    }
+
+    /** FullText と Text は同一とみなす */
+    public String getText() {
+        return text != null ? text : fullText;
+    }
+
     // region
     public String getId() {
         return id;
@@ -72,10 +85,6 @@ public class Tweet {
 
     public String getCreatedAt() {
         return createdAt;
-    }
-
-    public String getFullText() {
-        return fullText;
     }
 
     public Integer[] getDisplayTextRange() {

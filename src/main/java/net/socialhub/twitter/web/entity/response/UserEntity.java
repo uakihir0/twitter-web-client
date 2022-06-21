@@ -8,4 +8,14 @@ public class UserEntity {
     private Entity url;
     @SerializedName("description")
     private Entity description;
+
+    // region
+    public Entity getUrl() {
+        return url;
+    }
+
+    public Entity getDescription() {
+        return description;
+    }
+    // endregion
 }

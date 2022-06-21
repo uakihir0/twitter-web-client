@@ -3,16 +3,10 @@ package net.socialhub.twitter.web.internal;
 import net.socialhub.twitter.web.api.TweetResource;
 import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
-import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.utility.Token;
 
-import static net.socialhub.twitter.web.utility.Endpoint.Tweet;
 import static net.socialhub.twitter.web.utility.Endpoint.TweetConversation;
-import static net.socialhub.twitter.web.utility.Endpoint.UserMediaTimeline;
-import static net.socialhub.twitter.web.utility.Endpoint.UserTimeline;
-import static net.socialhub.twitter.web.utility.Endpoint.UserTweetLiked;
-import static net.socialhub.twitter.web.utility.Endpoint.UserTweetRetweeted;
 
 public class TweetResourceImpl extends AbstractResource implements TweetResource {
 

@@ -22,6 +22,7 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 - [x] /2/timeline/retweeted_by.json
 - [x] /2/timeline/media/{userId}.json
 - [x] /2/timeline/conversation/{tweetId}.json
+- [x] /2/search/adaptive.json
 
 
 ## Install

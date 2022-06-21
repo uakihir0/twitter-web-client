@@ -1,6 +1,7 @@
 package net.socialhub.twitter.web.internal;
 
 import net.socialhub.twitter.web.TwitterWebClient;
+import net.socialhub.twitter.web.api.SearchResource;
 import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.api.TweetResource;
 import net.socialhub.twitter.web.api.UserResource;
@@ -15,6 +16,7 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     private TweetResource tweet;
     private TimelineResource timeline;
     private UserResource user;
+    private SearchResource search;
 
     public TwitterWebClientImpl(
             String apiUrl) {
@@ -25,6 +27,7 @@ public class TwitterWebClientImpl implements TwitterWebClient {
         this.tweet = new TweetResourceImpl(this.uri, this.token);
         this.timeline = new TimelineResourceImpl(this.uri, this.token);
         this.user = new UserResourceImpl(this.uri, this.token);
+        this.search = new SearchResourceImpl(this.uri, this.token);
     }
 
     public TwitterWebClientImpl() {
@@ -44,6 +47,11 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     @Override
     public UserResource user() {
         return user;
+    }
+
+    @Override
+    public SearchResource search() {
+        return search;
     }
 
     // region

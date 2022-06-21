@@ -12,6 +12,8 @@ public class Instruction {
     private EntriesRef addEntries;
     @SerializedName("pinEntry")
     private EntryRef pinEntry;
+    @SerializedName("replaceEntry")
+    private ReplaceEntry replaceEntry;
 
     // region
     public EntriesRef getAddEntries() {
@@ -20,6 +22,10 @@ public class Instruction {
 
     public EntryRef getPinEntry() {
         return pinEntry;
+    }
+
+    public ReplaceEntry getReplaceEntry() {
+        return replaceEntry;
     }
     // endregion
 
@@ -47,4 +53,29 @@ public class Instruction {
         // endregion
     }
 
+    public static class ReplaceEntry {
+
+        @SerializedName("entryIdToReplace")
+        private String entryIdToReplace;
+        @SerializedName("entry")
+        private Entry entry;
+
+        // region
+        public String getEntryIdToReplace() {
+            return entryIdToReplace;
+        }
+
+        public void setEntryIdToReplace(String entryIdToReplace) {
+            this.entryIdToReplace = entryIdToReplace;
+        }
+
+        public Entry getEntry() {
+            return entry;
+        }
+
+        public void setEntry(Entry entry) {
+            this.entry = entry;
+        }
+        // endregion
+    }
 }

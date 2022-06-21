@@ -1,6 +1,6 @@
 # UserTimeline Sample
 
-```
+```json
 {
   "globalObjects": {
     "tweets": {
