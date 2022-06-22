@@ -19,6 +19,10 @@ public class Entity {
     public Mention[] getUserMentions() {
         return userMentions;
     }
+
+    public Media[] getMedia() {
+        return media;
+    }
     // endregion
 
     public static class Url {
