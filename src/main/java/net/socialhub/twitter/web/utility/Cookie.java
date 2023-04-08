@@ -10,9 +10,15 @@ import java.util.Map;
 
 public class Cookie {
 
+    public Cookie(Config config) {
+        this.config = config;
+    }
+
     private static final String URL = "https://twitter.com/";
 
     private final Map<String, String> params = new HashMap<>();
+
+    private final Config config;
 
     public String getCt0() {
 
@@ -69,7 +75,7 @@ public class Cookie {
 
     private Map<String, String> headers() {
         Map<String, String> headers = new HashMap<>();
-        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36");
+        headers.put("user-agent", config.getUserAgent());
         return headers;
     }
 }

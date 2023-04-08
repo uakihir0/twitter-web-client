@@ -2,9 +2,8 @@ package net.socialhub.twitter.web.internal;
 
 import net.socialhub.twitter.web.api.LoginResource;
 import net.socialhub.twitter.web.utility.Cookie;
-import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.request.LoginRequest;
-import net.socialhub.twitter.web.entity.response.Onboarding;
+import net.socialhub.twitter.web.entity.response.login.Onboarding;
 import net.socialhub.twitter.web.utility.Endpoint;
 import net.socialhub.twitter.web.utility.Session;
 
@@ -25,6 +24,8 @@ public class LoginResourceImpl extends AbstractResource implements LoginResource
         String flowToken = loginStartSubtask();
         flowToken = loginJsInstrumentationSubtask(flowToken);
         flowToken = loginEnterUserIdentifierSSOSSubtask(flowToken, request.getUsername());
+        flowToken = loginEnterPasswordSubtask(flowToken, request.getPassword());
+        flowToken = loginAccountDuplicationCheckSubtask(flowToken);
         return null;
     }
 
@@ -129,6 +130,63 @@ public class LoginResourceImpl extends AbstractResource implements LoginResource
         Map<String, Object> subtask = new HashMap<>();
         subtask.put("subtask_id", "LoginEnterUserIdentifierSSO");
         subtask.put("settings_list", settingsList);
+
+        List<Map<String, Object>> subtasks = new ArrayList<>();
+        subtasks.add(subtask);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("flow_token", flowToken);
+        data.put("subtask_inputs", subtasks);
+
+        return post(
+                Endpoint.Onboarding.path(),
+                gson.toJson(data),
+                Onboarding.class
+        ).get().getFlowToken();
+    }
+
+    /**
+     * Enter password
+     * ログインにおけるパスワードの入力
+     */
+    private String loginEnterPasswordSubtask(
+            String flowToken,
+            String password
+    ){
+        Map<String, Object> enterPassword = new HashMap<>();
+        enterPassword.put("password", password);
+        enterPassword.put("link", "next_link");
+
+        Map<String, Object> subtask = new HashMap<>();
+        subtask.put("subtask_id", "LoginEnterPassword");
+        subtask.put("enter_password", enterPassword);
+
+        List<Map<String, Object>> subtasks = new ArrayList<>();
+        subtasks.add(subtask);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("flow_token", flowToken);
+        data.put("subtask_inputs", subtasks);
+
+        return post(
+                Endpoint.Onboarding.path(),
+                gson.toJson(data),
+                Onboarding.class
+        ).get().getFlowToken();
+    }
+
+    /**
+     * Account duplication check
+     * ログインにおける認証確認
+     */
+    private String loginAccountDuplicationCheckSubtask(String flowToken) {
+
+        Map<String, Object> checkLoggedInAccount = new HashMap<>();
+        checkLoggedInAccount.put("link", "AccountDuplicationCheck_false");
+
+        Map<String, Object> subtask = new HashMap<>();
+        subtask.put("subtask_id", "LoginAccountDuplicationCheck");
+        subtask.put("check_logged_in_account", checkLoggedInAccount);
 
         List<Map<String, Object>> subtasks = new ArrayList<>();
         subtasks.add(subtask);

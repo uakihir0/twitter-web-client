@@ -6,26 +6,28 @@ import net.socialhub.twitter.web.api.SearchResource;
 import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.api.TweetResource;
 import net.socialhub.twitter.web.api.UserResource;
+import net.socialhub.twitter.web.utility.Config;
 import net.socialhub.twitter.web.utility.Const;
 import net.socialhub.twitter.web.utility.GuestToken;
 import net.socialhub.twitter.web.utility.Session;
 
 public class TwitterWebClientImpl implements TwitterWebClient {
 
-    private String uri;
-    private Session session;
+    private final String uri;
+    private final Session session;
 
-    private LoginResource login;
-    private TweetResource tweet;
-    private TimelineResource timeline;
-    private UserResource user;
-    private SearchResource search;
+    private final LoginResource login;
+    private final TweetResource tweet;
+    private final TimelineResource timeline;
+    private final UserResource user;
+    private final SearchResource search;
 
     public TwitterWebClientImpl(
-            String apiUrl) {
-
+            Config config,
+            String apiUrl
+    ) {
         this.uri = apiUrl;
-        this.session = new Session();
+        this.session = new Session(config);
         this.session.setGuestToken(GuestToken.with(apiUrl));
 
         this.login = new LoginResourceImpl(this.uri, this.session);
@@ -36,7 +38,7 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     }
 
     public TwitterWebClientImpl() {
-        this(Const.DefaultApiUrl);
+        this(new Config(), Const.DefaultApiUrl);
     }
 
     @Override

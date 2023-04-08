@@ -10,6 +10,7 @@ public class LoginTest extends AbstractTest {
         TwitterWebClient client = new TwitterWebClient.Builder().build();
         LoginRequest request = LoginRequest.builder()
                 .username(secrets.getUsername())
+                .password(secrets.getPassword())
                 .build();
         client.login().login(request);
     }

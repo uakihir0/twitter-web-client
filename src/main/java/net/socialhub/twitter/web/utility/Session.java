@@ -6,9 +6,16 @@ package net.socialhub.twitter.web.utility;
  */
 public class Session {
 
+    public Session(Config config) {
+        this.config = config;
+        this.cookie = new Cookie(config);
+    }
+
     private boolean isGuest = false;
     private GuestToken guestToken;
-    private final Cookie cookie = new Cookie();
+    private final Config config;
+    private final Cookie cookie;
+
 
     // region
     public boolean isGuest() {
@@ -25,6 +32,10 @@ public class Session {
 
     public void setGuestToken(GuestToken guestToken) {
         this.guestToken = guestToken;
+    }
+
+    public Config getConfig() {
+        return config;
     }
 
     public Cookie getCookie() {

@@ -133,7 +133,7 @@ public abstract class AbstractResource {
         header.put("DNT", "1");
         header.put("authorization", Const.AUTH);
         header.put("content-type", "application/json");
-        header.put("user-agent", Agent.get());
+        header.put("user-agent", session.getConfig().getUserAgent());
         header.put("x-csrf-token", session.getCt0());
         header.put("x-guest-token", session.getGuestToken());
         header.put("x-twitter-active-user", "yes");
