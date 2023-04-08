@@ -1,18 +1,21 @@
 package net.socialhub.twitter.web.internal;
 
 import net.socialhub.twitter.web.TwitterWebClient;
+import net.socialhub.twitter.web.api.LoginResource;
 import net.socialhub.twitter.web.api.SearchResource;
 import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.api.TweetResource;
 import net.socialhub.twitter.web.api.UserResource;
 import net.socialhub.twitter.web.utility.Const;
-import net.socialhub.twitter.web.utility.Token;
+import net.socialhub.twitter.web.utility.GuestToken;
+import net.socialhub.twitter.web.utility.Session;
 
 public class TwitterWebClientImpl implements TwitterWebClient {
 
     private String uri;
-    private Token token;
+    private Session session;
 
+    private LoginResource login;
     private TweetResource tweet;
     private TimelineResource timeline;
     private UserResource user;
@@ -22,16 +25,23 @@ public class TwitterWebClientImpl implements TwitterWebClient {
             String apiUrl) {
 
         this.uri = apiUrl;
-        this.token = Token.with(apiUrl);
+        this.session = new Session();
+        this.session.setGuestToken(GuestToken.with(apiUrl));
 
-        this.tweet = new TweetResourceImpl(this.uri, this.token);
-        this.timeline = new TimelineResourceImpl(this.uri, this.token);
-        this.user = new UserResourceImpl(this.uri, this.token);
-        this.search = new SearchResourceImpl(this.uri, this.token);
+        this.login = new LoginResourceImpl(this.uri, this.session);
+        this.tweet = new TweetResourceImpl(this.uri, this.session);
+        this.user = new UserResourceImpl(this.uri, this.session);
+        this.timeline = new TimelineResourceImpl(this.uri, this.session);
+        this.search = new SearchResourceImpl(this.uri, this.session);
     }
 
     public TwitterWebClientImpl() {
         this(Const.DefaultApiUrl);
+    }
+
+    @Override
+    public LoginResource login() {
+        return login;
     }
 
     @Override
@@ -59,8 +69,8 @@ public class TwitterWebClientImpl implements TwitterWebClient {
         return uri;
     }
 
-    public Token getToken() {
-        return token;
+    public Session getSession() {
+        return session;
     }
     // endregion
 }

@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import net.socialhub.http.HttpRequestBuilder;
 import net.socialhub.http.HttpResponse;
 import net.socialhub.twitter.web.entity.other.TwitterWebException;
-import net.socialhub.twitter.web.entity.response.Session;
+import net.socialhub.twitter.web.entity.response.GuestSession;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * Token about twitter web api.
  * https://github.com/zedeus/nitter/blob/master/src/tokens.nim
  */
-public final class Token {
+public final class GuestToken {
 
     private static final Gson gson = new Gson();
 
@@ -23,7 +23,7 @@ public final class Token {
     private String value;
     private Date expired;
 
-    private Token(String url) {
+    private GuestToken(String url) {
         this.url = url;
     }
 
@@ -31,8 +31,8 @@ public final class Token {
      * Get token object with specified url.
      * 特定の URL を指定してトークンを取得
      */
-    public static Token with(String baseUrl) {
-        return new Token(baseUrl + Endpoint.Activate.path());
+    public static GuestToken with(String baseUrl) {
+        return new GuestToken(baseUrl + Endpoint.Activate.path());
     }
 
     /**
@@ -57,9 +57,9 @@ public final class Token {
 
         try {
             HttpResponse response = builder.post();
-            Session session = gson.fromJson(response.asString(), Session.class);
+            GuestSession guestSession = gson.fromJson(response.asString(), GuestSession.class);
 
-            this.value = session.getGuestToken();
+            this.value = guestSession.getGuestToken();
             long maxAgeMSec = TimeUnit.MINUTES.toMillis(15);
             this.expired = new Date(new Date().getTime() + maxAgeMSec);
 

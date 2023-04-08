@@ -4,6 +4,7 @@ public enum Endpoint {
 
     // region 1.1
     Activate("/1.1/guest/activate.json"),
+    Onboarding("/1.1/onboarding/task.json"),
     // endregion
 
     // region 2
