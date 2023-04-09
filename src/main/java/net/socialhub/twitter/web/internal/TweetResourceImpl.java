@@ -11,8 +11,8 @@ import static net.socialhub.twitter.web.utility.Endpoint.TweetConversation;
 
 public class TweetResourceImpl extends AbstractResource implements TweetResource {
 
-    public TweetResourceImpl(String baseUrl, Session session) {
-        super(baseUrl, session);
+    public TweetResourceImpl(Session session) {
+        super(session);
     }
 
     @Override

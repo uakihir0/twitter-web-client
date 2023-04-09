@@ -8,13 +8,10 @@ import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
 import net.socialhub.twitter.web.entity.Request;
 import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.other.TwitterWebException;
-import net.socialhub.twitter.web.utility.Agent;
-import net.socialhub.twitter.web.utility.Const;
-import net.socialhub.twitter.web.utility.GuestToken;
+import net.socialhub.twitter.web.utility.Config;
 import net.socialhub.twitter.web.utility.Session;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,12 +21,11 @@ public abstract class AbstractResource {
     public static final Logger log = Logger.getLogger(AbstractResource.class);
 
     public static final Gson gson = new Gson();
-
-    private final String baseUrl;
     private final Session session;
+    private final Config config;
 
-    public AbstractResource(String baseUrl, Session session) {
-        this.baseUrl = baseUrl;
+    public AbstractResource(Session session) {
+        this.config = session.getConfig();
         this.session = session;
     }
 
@@ -131,14 +127,14 @@ public abstract class AbstractResource {
         Map<String, String> header = new HashMap<>();
 
         header.put("DNT", "1");
-        header.put("authorization", Const.AUTH);
+        header.put("authorization", config.getAuthentication());
         header.put("content-type", "application/json");
-        header.put("user-agent", session.getConfig().getUserAgent());
+        header.put("user-agent", config.getUserAgent());
         header.put("x-csrf-token", session.getCt0());
         header.put("x-guest-token", session.getGuestToken());
         header.put("x-twitter-active-user", "yes");
         header.put("cookie", session.getCookie().toString());
-        //header.put("x-twitter-auth-type", "OAuth2Session");
+        // header.put("x-twitter-auth-type", "OAuth2Session");
         header.put("authority", "api.twitter.com");
         header.put("accept-language", "en-US,en;q=0.9");
         header.put("accept", "*/*");
@@ -157,7 +153,7 @@ public abstract class AbstractResource {
         builder.userAgent(null);
 
         // パスの設定
-        builder.target(baseUrl);
+        builder.target(config.getApiUri());
         builder.path(path);
         return builder;
     }

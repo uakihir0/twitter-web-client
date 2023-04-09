@@ -17,7 +17,6 @@ public interface TwitterWebClient {
     SearchResource search();
 
     Session getSession();
-    String getBaseUri();
 
     class Builder {
         public TwitterWebClient build() {

@@ -11,8 +11,8 @@ import static net.socialhub.twitter.web.utility.Endpoint.Search;
 
 public class SearchResourceImpl extends AbstractResource implements SearchResource {
 
-    public SearchResourceImpl(String baseUrl, Session session) {
-        super(baseUrl, session);
+    public SearchResourceImpl(Session session) {
+        super(session);
     }
 
     @Override

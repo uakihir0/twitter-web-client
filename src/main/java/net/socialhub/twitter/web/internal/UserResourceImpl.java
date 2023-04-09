@@ -17,8 +17,8 @@ import static net.socialhub.twitter.web.utility.Endpoint.UsersFollowers;
 
 public class UserResourceImpl extends AbstractResource implements UserResource {
 
-    public UserResourceImpl(String baseUrl, Session session) {
-        super(baseUrl, session);
+    public UserResourceImpl(Session session) {
+        super(session);
     }
 
     @Override

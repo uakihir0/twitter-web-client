@@ -22,22 +22,50 @@ public class AbstractTest {
 
     protected Map<String, String> cookie;
 
+    protected TwitterWebClient client;
+
     @Before
     public void before() {
-        InputStream stream = getClass().getResourceAsStream("/secrets.json");
+        client = new TwitterWebClient.Builder().build();
 
-        if (stream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(stream);
-            Stream<String> streamOfString = new BufferedReader(inputStreamReader).lines();
-            String jsonString = streamOfString.collect(Collectors.joining());
-            secrets = new Gson().fromJson(jsonString, Secrets.class);
+        // 認証情報等の読み込み実行
+        String json = readFile("secrets.json");
+        if (json != null && !json.isEmpty()) {
+            System.out.println(json);
+            secrets = new Gson().fromJson(json, Secrets.class);
         }
 
+        readCookie();
+    }
+
+    /**
+     * Save Cookie to File
+     */
+    protected void saveCookie() {
+        try {
+            Map<String, String> cookie = client.getSession().getCookie().get();
+            String json = new Gson().toJson(cookie);
+            FileWriter fw = new FileWriter("cookie.json");
+            fw.write(json);
+            fw.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Read Cookie from File
+     */
+    protected void readCookie() {
         try {
             String json = readFile("cookie.json");
             this.cookie = new Gson().fromJson(json,
                     new TypeToken<Map<String, String>>() {
                     }.getType());
+
+            this.client.getSession().getCookie()
+                    .get().putAll(this.cookie);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,11 +91,9 @@ public class AbstractTest {
             return b.toString();
 
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
-
 
     public void printTweet(Tweet tweet) {
 

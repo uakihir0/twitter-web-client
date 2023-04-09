@@ -12,8 +12,8 @@ import static net.socialhub.twitter.web.utility.Endpoint.UserTimeline;
 
 public class TimelineResourceImpl extends AbstractResource implements TimelineResource {
 
-    public TimelineResourceImpl(String baseUrl, Session session) {
-        super(baseUrl, session);
+    public TimelineResourceImpl(Session session) {
+        super(session);
     }
 
     @Override

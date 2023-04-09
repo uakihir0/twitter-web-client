@@ -13,26 +13,17 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Token about twitter web api.
- * https://github.com/zedeus/nitter/blob/master/src/tokens.nim
+ * <a href="https://github.com/zedeus/nitter/blob/master/src/tokens.nim">Reference</a>
  */
 public final class GuestToken {
 
     private static final Gson gson = new Gson();
-
-    private String url;
+    private final Session session;
     private String value;
     private Date expired;
 
-    private GuestToken(String url) {
-        this.url = url;
-    }
-
-    /**
-     * Get token object with specified url.
-     * 特定の URL を指定してトークンを取得
-     */
-    public static GuestToken with(String baseUrl) {
-        return new GuestToken(baseUrl + Endpoint.Activate.path());
+    public GuestToken(Session session) {
+        this.session = session;
     }
 
     /**
@@ -51,6 +42,7 @@ public final class GuestToken {
     // Request
     private void request() {
 
+        String url = session.getConfig().getApiUri() + Endpoint.Activate.path();
         HttpRequestBuilder builder = new HttpRequestBuilder();
         headers().forEach(builder::header);
         builder.target(url);
@@ -72,11 +64,13 @@ public final class GuestToken {
     // Request header
     private Map<String, String> headers() {
         Map<String, String> headers = new HashMap<>();
-        headers.put("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-        headers.put("accept-language", "en-US,en;q=0.5");
+
         headers.put("connection", "keep-alive");
-        headers.put("authorization", Const.AUTH);
-        headers.put("user-agent", Agent.get());
+        headers.put("accept-language", "en-US,en;q=0.9");
+        headers.put("accept", "*/*");
+
+        headers.put("authorization", session.getConfig().getAuthentication());
+        headers.put("user-agent", session.getConfig().getUserAgent());
 
         return headers;
     }

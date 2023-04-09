@@ -7,13 +7,11 @@ import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.api.TweetResource;
 import net.socialhub.twitter.web.api.UserResource;
 import net.socialhub.twitter.web.utility.Config;
-import net.socialhub.twitter.web.utility.Const;
 import net.socialhub.twitter.web.utility.GuestToken;
 import net.socialhub.twitter.web.utility.Session;
 
 public class TwitterWebClientImpl implements TwitterWebClient {
 
-    private final String uri;
     private final Session session;
 
     private final LoginResource login;
@@ -22,23 +20,20 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     private final UserResource user;
     private final SearchResource search;
 
-    public TwitterWebClientImpl(
-            Config config,
-            String apiUrl
-    ) {
-        this.uri = apiUrl;
-        this.session = new Session(config);
-        this.session.setGuestToken(GuestToken.with(apiUrl));
+    public TwitterWebClientImpl(Config config) {
 
-        this.login = new LoginResourceImpl(this.uri, this.session);
-        this.tweet = new TweetResourceImpl(this.uri, this.session);
-        this.user = new UserResourceImpl(this.uri, this.session);
-        this.timeline = new TimelineResourceImpl(this.uri, this.session);
-        this.search = new SearchResourceImpl(this.uri, this.session);
+        this.session = new Session(config);
+        this.session.setGuestToken(new GuestToken(this.session));
+
+        this.login = new LoginResourceImpl(this.session);
+        this.tweet = new TweetResourceImpl(this.session);
+        this.user = new UserResourceImpl(this.session);
+        this.timeline = new TimelineResourceImpl(this.session);
+        this.search = new SearchResourceImpl(this.session);
     }
 
     public TwitterWebClientImpl() {
-        this(new Config(), Const.DefaultApiUrl);
+        this(new Config());
     }
 
     @Override
@@ -69,10 +64,5 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     @Override
     public Session getSession() {
         return session;
-    }
-
-    @Override
-    public String getBaseUri() {
-        return uri;
     }
 }

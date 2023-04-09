@@ -15,8 +15,8 @@ import java.util.Map;
 
 public class LoginResourceImpl extends AbstractResource implements LoginResource {
 
-    public LoginResourceImpl(String baseUrl, Session session) {
-        super(baseUrl, session);
+    public LoginResourceImpl(Session session) {
+        super(session);
     }
 
     @Override
