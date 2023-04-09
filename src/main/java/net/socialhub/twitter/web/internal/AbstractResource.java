@@ -76,6 +76,20 @@ public abstract class AbstractResource {
     }
 
     /**
+     * POST Request (GraphQL Endpoint)
+     */
+    public <T> Response<T> graphPost(String path, GraphRequest request, Class<T> clazz) {
+        HttpRequestBuilder builder = getInitializedBuilder(path);
+
+        // ヘッダー & パラメータ を作成
+        Map<String, String> headers = getHeader();
+        headers.forEach(builder::header);
+        builder.json(gson.toJson(request.params()));
+
+        return post(builder, clazz);
+    }
+
+    /**
      * リクエストを送信
      */
     protected <T> Response<T> get(HttpRequestBuilder builder, Class<T> clazz) {
