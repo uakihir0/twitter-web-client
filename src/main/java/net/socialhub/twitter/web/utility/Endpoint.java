@@ -4,6 +4,7 @@ public enum Endpoint {
 
     // region 1.1
     Activate("/1.1/guest/activate.json"),
+    Onboarding("/1.1/onboarding/task.json"),
     // endregion
 
     // region 2
@@ -18,6 +19,8 @@ public enum Endpoint {
     // region GraphQL
     UserByScreenName("/graphql/E4iSsd6gypGFWx2eUhSC1g/UserByScreenName"),
     UsersFollowers("/graphql/5HZiSi1hMNgxX8NZU_05xg/Followers"),
+    TweetCreate("/graphql/XyvN0Wv13eeu_gVIHDi10g/CreateTweet"),
+
     // endregion
 
     ;

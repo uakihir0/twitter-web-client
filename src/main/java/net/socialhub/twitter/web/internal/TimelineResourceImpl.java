@@ -4,15 +4,16 @@ import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
-import net.socialhub.twitter.web.utility.Token;
+import net.socialhub.twitter.web.utility.GuestToken;
+import net.socialhub.twitter.web.utility.Session;
 
 import static net.socialhub.twitter.web.utility.Endpoint.UserMediaTimeline;
 import static net.socialhub.twitter.web.utility.Endpoint.UserTimeline;
 
 public class TimelineResourceImpl extends AbstractResource implements TimelineResource {
 
-    public TimelineResourceImpl(String baseUrl, Token token) {
-        super(baseUrl, token);
+    public TimelineResourceImpl(Session session) {
+        super(session);
     }
 
     @Override

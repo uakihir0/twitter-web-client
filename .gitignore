@@ -2,3 +2,5 @@
 .idea
 /build/
 /out/
+secrets.json
+cookie.json

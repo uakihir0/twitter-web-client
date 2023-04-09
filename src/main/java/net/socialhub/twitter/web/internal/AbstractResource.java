@@ -8,9 +8,8 @@ import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
 import net.socialhub.twitter.web.entity.Request;
 import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.other.TwitterWebException;
-import net.socialhub.twitter.web.utility.Agent;
-import net.socialhub.twitter.web.utility.Const;
-import net.socialhub.twitter.web.utility.Token;
+import net.socialhub.twitter.web.utility.Config;
+import net.socialhub.twitter.web.utility.Session;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,16 +18,15 @@ import java.util.UUID;
 import static java.util.Collections.singletonMap;
 
 public abstract class AbstractResource {
-
-    public static final Gson gson = new Gson();
     public static final Logger log = Logger.getLogger(AbstractResource.class);
 
-    private final String baseUrl;
-    private final Token token;
+    public static final Gson gson = new Gson();
+    private final Session session;
+    private final Config config;
 
-    public AbstractResource(String baseUrl, Token token) {
-        this.baseUrl = baseUrl;
-        this.token = token;
+    public AbstractResource(Session session) {
+        this.config = session.getConfig();
+        this.session = session;
     }
 
     /**
@@ -44,6 +42,20 @@ public abstract class AbstractResource {
         params.forEach(builder::param);
 
         return get(builder, clazz);
+    }
+
+    /**
+     * POST Request
+     */
+    public <T> Response<T> post(String path, String json, Class<T> clazz) {
+        HttpRequestBuilder builder = getInitializedBuilder(path);
+
+        // ヘッダー & パラメータ を作成
+        Map<String, String> headers = getHeader();
+        headers.forEach(builder::header);
+        builder.json(json);
+
+        return post(builder, clazz);
     }
 
     /**
@@ -64,28 +76,54 @@ public abstract class AbstractResource {
     }
 
     /**
-     * 初期設定済みのリクエストクライアントを作成
+     * POST Request (GraphQL Endpoint)
      */
-    private HttpRequestBuilder getInitializedBuilder(String path) {
-        HttpRequestBuilder builder = new HttpRequestBuilder();
+    public <T> Response<T> graphPost(String path, GraphRequest request, Class<T> clazz) {
+        HttpRequestBuilder builder = getInitializedBuilder(path);
 
-        // UA は設定済みなので上書き防止
-        builder.userAgent(null);
+        // ヘッダー & パラメータ を作成
+        Map<String, String> headers = getHeader();
+        headers.forEach(builder::header);
+        builder.json(gson.toJson(request.params()));
 
-        // パスの設定
-        builder.target(baseUrl);
-        builder.path(path);
-        return builder;
+        return post(builder, clazz);
     }
 
     /**
      * リクエストを送信
      */
-    private <T> Response<T> get(HttpRequestBuilder builder, Class<T> clazz) {
+    protected <T> Response<T> get(HttpRequestBuilder builder, Class<T> clazz) {
 
         try {
             HttpResponse response = builder.get();
             String json = response.asString();
+
+            session.getCookie().set(response
+                    .getResponseHeaderFields()
+                    .get("set-cookie"));
+
+            T value = gson.fromJson(json, clazz);
+            return new Response<>(value);
+
+        } catch (Exception e) {
+            throw new TwitterWebException(
+                    "Error in request to twitter.", e);
+        }
+    }
+
+    /**
+     * リクエストを送信
+     */
+    protected <T> Response<T> post(HttpRequestBuilder builder, Class<T> clazz) {
+
+        try {
+            HttpResponse response = builder.post();
+            String json = response.asString();
+
+            session.getCookie().set(response
+                    .getResponseHeaderFields()
+                    .get("set-cookie"));
+
             T value = gson.fromJson(json, clazz);
             return new Response<>(value);
 
@@ -97,17 +135,20 @@ public abstract class AbstractResource {
 
     /**
      * Make header for Twitter Web API
-     * https://github.com/zedeus/nitter/blob/master/src/apiutils.nim
+     * <a href="https://github.com/zedeus/nitter/blob/master/src/apiutils.nim">Reference</a>
      */
     private Map<String, String> getHeader() {
         Map<String, String> header = new HashMap<>();
 
         header.put("DNT", "1");
-        header.put("authorization", Const.AUTH);
+        header.put("authorization", config.getAuthentication());
         header.put("content-type", "application/json");
-        header.put("user-agent", Agent.get());
-        header.put("x-guest-token", token());
+        header.put("user-agent", config.getUserAgent());
+        header.put("x-csrf-token", session.getCt0());
+        header.put("x-guest-token", session.getGuestToken());
         header.put("x-twitter-active-user", "yes");
+        header.put("cookie", session.getCookie().toString());
+        // header.put("x-twitter-auth-type", "OAuth2Session");
         header.put("authority", "api.twitter.com");
         header.put("accept-language", "en-US,en;q=0.9");
         header.put("accept", "*/*");
@@ -115,9 +156,20 @@ public abstract class AbstractResource {
         return header;
     }
 
-    // トークンの表現を取得
-    private String token() {
-        return (token != null) ? token.get() : "";
+
+    /**
+     * 初期設定済みのリクエストクライアントを作成
+     */
+    protected HttpRequestBuilder getInitializedBuilder(String path) {
+        HttpRequestBuilder builder = new HttpRequestBuilder();
+
+        // UA は設定済みなので上書き防止
+        builder.userAgent(null);
+
+        // パスの設定
+        builder.target(config.getApiUri());
+        builder.path(path);
+        return builder;
     }
 
     private String graphToken() {

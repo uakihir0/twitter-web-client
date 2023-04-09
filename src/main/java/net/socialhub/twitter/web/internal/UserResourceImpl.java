@@ -7,7 +7,8 @@ import net.socialhub.twitter.web.entity.request.graphql.ScreenNameRequest;
 import net.socialhub.twitter.web.entity.request.graphql.UserIdRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
-import net.socialhub.twitter.web.utility.Token;
+import net.socialhub.twitter.web.utility.GuestToken;
+import net.socialhub.twitter.web.utility.Session;
 
 import static net.socialhub.twitter.web.utility.Endpoint.UserByScreenName;
 import static net.socialhub.twitter.web.utility.Endpoint.UserTweetLiked;
@@ -16,8 +17,8 @@ import static net.socialhub.twitter.web.utility.Endpoint.UsersFollowers;
 
 public class UserResourceImpl extends AbstractResource implements UserResource {
 
-    public UserResourceImpl(String baseUrl, Token token) {
-        super(baseUrl, token);
+    public UserResourceImpl(Session session) {
+        super(session);
     }
 
     @Override

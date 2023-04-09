@@ -1,37 +1,44 @@
 package net.socialhub.twitter.web.internal;
 
 import net.socialhub.twitter.web.TwitterWebClient;
+import net.socialhub.twitter.web.api.LoginResource;
 import net.socialhub.twitter.web.api.SearchResource;
 import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.api.TweetResource;
 import net.socialhub.twitter.web.api.UserResource;
-import net.socialhub.twitter.web.utility.Const;
-import net.socialhub.twitter.web.utility.Token;
+import net.socialhub.twitter.web.utility.Config;
+import net.socialhub.twitter.web.utility.GuestToken;
+import net.socialhub.twitter.web.utility.Session;
 
 public class TwitterWebClientImpl implements TwitterWebClient {
 
-    private String uri;
-    private Token token;
+    private final Session session;
 
-    private TweetResource tweet;
-    private TimelineResource timeline;
-    private UserResource user;
-    private SearchResource search;
+    private final LoginResource login;
+    private final TweetResource tweet;
+    private final TimelineResource timeline;
+    private final UserResource user;
+    private final SearchResource search;
 
-    public TwitterWebClientImpl(
-            String apiUrl) {
+    public TwitterWebClientImpl(Config config) {
 
-        this.uri = apiUrl;
-        this.token = Token.with(apiUrl);
+        this.session = new Session(config);
+        this.session.setGuestToken(new GuestToken(this.session));
 
-        this.tweet = new TweetResourceImpl(this.uri, this.token);
-        this.timeline = new TimelineResourceImpl(this.uri, this.token);
-        this.user = new UserResourceImpl(this.uri, this.token);
-        this.search = new SearchResourceImpl(this.uri, this.token);
+        this.login = new LoginResourceImpl(this.session);
+        this.tweet = new TweetResourceImpl(this.session);
+        this.user = new UserResourceImpl(this.session);
+        this.timeline = new TimelineResourceImpl(this.session);
+        this.search = new SearchResourceImpl(this.session);
     }
 
     public TwitterWebClientImpl() {
-        this(Const.DefaultApiUrl);
+        this(new Config());
+    }
+
+    @Override
+    public LoginResource login() {
+        return login;
     }
 
     @Override
@@ -54,13 +61,8 @@ public class TwitterWebClientImpl implements TwitterWebClient {
         return search;
     }
 
-    // region
-    public String getUri() {
-        return uri;
+    @Override
+    public Session getSession() {
+        return session;
     }
-
-    public Token getToken() {
-        return token;
-    }
-    // endregion
 }
