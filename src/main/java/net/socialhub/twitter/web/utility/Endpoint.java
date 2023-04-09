@@ -2,12 +2,14 @@ package net.socialhub.twitter.web.utility;
 
 public enum Endpoint {
 
-    // region 1.1
+    // region v1.1
     Activate("/1.1/guest/activate.json"),
     Onboarding("/1.1/onboarding/task.json"),
+    CreateFriendships("/1.1/friendships/create.json"),
+    DestroyFriendships("/1.1/friendships/destroy.json"),
     // endregion
 
-    // region 2
+    // region v2
     UserTimeline("/2/timeline/profile/{userId}.json"),
     UserTweetLiked("/2/timeline/liked_by.json"),
     UserTweetRetweeted("/2/timeline/retweeted_by.json"),
@@ -19,13 +21,16 @@ public enum Endpoint {
     // region GraphQL
     UserByScreenName("/graphql/E4iSsd6gypGFWx2eUhSC1g/UserByScreenName"),
     UsersFollowers("/graphql/5HZiSi1hMNgxX8NZU_05xg/Followers"),
-    TweetCreate("/graphql/XyvN0Wv13eeu_gVIHDi10g/CreateTweet"),
-
+    CreateTweet("/graphql/XyvN0Wv13eeu_gVIHDi10g/CreateTweet"),
+    FavoriteTweet("/graphql/lI07N6Otwv1PhnEgXILM7A/FavoriteTweet"),
+    UnfavoriteTweet("/graphql/ZYKSe-w7KEslx3JhSIk5LA/UnfavoriteTweet"),
+    CreateRetweet("/graphql/ojPdsZsimiJrUGLR1sjUtA/CreateRetweet"),
+    DeleteRetweet("/graphql/iQtK4dl5hBmXewYZuEOKVw/DeleteRetweet"),
     // endregion
 
     ;
 
-    private String path;
+    private final String path;
 
     Endpoint(String path) {
         this.path = path;

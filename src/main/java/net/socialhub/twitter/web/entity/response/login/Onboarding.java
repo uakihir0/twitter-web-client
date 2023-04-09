@@ -1,7 +1,6 @@
 package net.socialhub.twitter.web.entity.response.login;
 
 import com.google.gson.annotations.SerializedName;
-import net.socialhub.twitter.web.entity.response.login.SubTask;
 
 public class Onboarding {
 

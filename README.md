@@ -10,12 +10,19 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 
 ## Features
 
-* No need Consumer Key/Secret.
-* Many fields are accessible.
-* Can access various APIs.
+* No Consumer Key/Secret required.
+* Access to a variety of data.
+* Various APIs available.
 * Easy to use.
 
 ### APIs
+
+#### V1
+
+- [x] /1.1/guest/activate.json
+- [x] /1.1/onboarding/task.json
+
+#### V2
 
 - [x] /2/timeline/profile/{userId}.json
 - [x] /2/timeline/liked_by.json
@@ -24,6 +31,11 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 - [x] /2/timeline/conversation/{tweetId}.json
 - [x] /2/search/adaptive.json
 
+#### GraphQL
+
+- [ ] /graphql/{queryId}/UserByScreenName
+- [ ] /graphql/{queryId}/Followers
+- [x] /graphql/{queryId}/CreateTweet
 
 ## Install
 
@@ -49,10 +61,10 @@ dependencies {
 
 ## How To Use
 
-**Twitter Web Client needs NO Twitter Consumer Key and Secret.** 
+**Twitter Web Client needs NO Twitter Consumer Key and Secret.**
 You can access Twitter resources just only use this client library, as bellow.
-(This library can access resources only no authentication required.)
 
+### Access to PublicData
 
 ```java
 // Get tweets from specified user.

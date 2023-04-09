@@ -7,11 +7,9 @@ import net.socialhub.twitter.web.entity.request.graphql.CreateTweetRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
 import net.socialhub.twitter.web.utility.Endpoint;
-import net.socialhub.twitter.web.utility.GuestToken;
 import net.socialhub.twitter.web.utility.Session;
 
 import static net.socialhub.twitter.web.utility.Endpoint.TweetConversation;
-import static net.socialhub.twitter.web.utility.Endpoint.UserByScreenName;
 
 public class TweetResourceImpl extends AbstractResource implements TweetResource {
 
@@ -32,7 +30,7 @@ public class TweetResourceImpl extends AbstractResource implements TweetResource
     public Response<GraphRoot> createTweet(
             CreateTweetRequest request
     ) {
-        String path = Endpoint.TweetCreate.path();
+        String path = Endpoint.CreateTweet.path();
         return graphPost(path, request, GraphRoot.class);
     }
 }

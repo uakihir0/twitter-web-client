@@ -1,9 +1,9 @@
 package net.socialhub.twitter.web.internal;
 
 import net.socialhub.twitter.web.api.LoginResource;
-import net.socialhub.twitter.web.utility.Cookie;
 import net.socialhub.twitter.web.entity.request.LoginRequest;
 import net.socialhub.twitter.web.entity.response.login.Onboarding;
+import net.socialhub.twitter.web.utility.Cookie;
 import net.socialhub.twitter.web.utility.Endpoint;
 import net.socialhub.twitter.web.utility.Session;
 

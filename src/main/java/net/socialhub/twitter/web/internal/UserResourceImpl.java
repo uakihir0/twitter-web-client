@@ -7,7 +7,6 @@ import net.socialhub.twitter.web.entity.request.graphql.ScreenNameRequest;
 import net.socialhub.twitter.web.entity.request.graphql.UserIdRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
-import net.socialhub.twitter.web.utility.GuestToken;
 import net.socialhub.twitter.web.utility.Session;
 
 import static net.socialhub.twitter.web.utility.Endpoint.UserByScreenName;
