@@ -21,13 +21,15 @@ public class Cookie {
     private final Config config;
 
     public String getCt0() {
-
-        // 初回リクエストがまだなので実行
-        // リクエストがあれば最低でも空文字が含まれている
+        // 初回リクエストがまだなので初期実行
         if (params.get("ct0") == null) {
             request();
         }
         return params.get("ct0");
+    }
+
+    public Map<String, String> get() {
+        return params;
     }
 
     public void set(List<String> cookies) {

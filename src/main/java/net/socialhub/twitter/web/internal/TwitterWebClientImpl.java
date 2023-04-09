@@ -66,13 +66,13 @@ public class TwitterWebClientImpl implements TwitterWebClient {
         return search;
     }
 
-    // region
-    public String getUri() {
-        return uri;
-    }
-
+    @Override
     public Session getSession() {
         return session;
     }
-    // endregion
+
+    @Override
+    public String getBaseUri() {
+        return uri;
+    }
 }

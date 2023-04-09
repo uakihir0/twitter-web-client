@@ -6,6 +6,7 @@ import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.api.TweetResource;
 import net.socialhub.twitter.web.api.UserResource;
 import net.socialhub.twitter.web.internal.TwitterWebClientImpl;
+import net.socialhub.twitter.web.utility.Session;
 
 public interface TwitterWebClient {
 
@@ -14,6 +15,9 @@ public interface TwitterWebClient {
     TimelineResource timeline();
     UserResource user();
     SearchResource search();
+
+    Session getSession();
+    String getBaseUri();
 
     class Builder {
         public TwitterWebClient build() {

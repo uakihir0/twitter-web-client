@@ -2,7 +2,7 @@ package net.socialhub.twitter.web.utility;
 
 /**
  * リクエストに必要な認証情報等
- * ↑を英語に ->
+ * Authentication information required for requests
  */
 public class Session {
 
