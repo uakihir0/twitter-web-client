@@ -4,7 +4,6 @@ import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
-import net.socialhub.twitter.web.utility.GuestToken;
 import net.socialhub.twitter.web.utility.Session;
 
 import static net.socialhub.twitter.web.utility.Endpoint.UserMediaTimeline;

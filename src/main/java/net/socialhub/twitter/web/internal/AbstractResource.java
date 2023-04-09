@@ -1,13 +1,14 @@
 package net.socialhub.twitter.web.internal;
 
 import com.google.gson.Gson;
+import net.socialhub.http.HttpMediaType;
 import net.socialhub.http.HttpRequestBuilder;
 import net.socialhub.http.HttpResponse;
 import net.socialhub.logger.Logger;
-import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
 import net.socialhub.twitter.web.entity.Request;
 import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.other.TwitterWebException;
+import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
 import net.socialhub.twitter.web.utility.Config;
 import net.socialhub.twitter.web.utility.Session;
 
@@ -142,13 +143,12 @@ public abstract class AbstractResource {
 
         header.put("DNT", "1");
         header.put("authorization", config.getAuthentication());
-        header.put("content-type", "application/json");
+        header.put("content-type", HttpMediaType.APPLICATION_JSON);
         header.put("user-agent", config.getUserAgent());
         header.put("x-csrf-token", session.getCt0());
         header.put("x-guest-token", session.getGuestToken());
         header.put("x-twitter-active-user", "yes");
         header.put("cookie", session.getCookie().toString());
-        // header.put("x-twitter-auth-type", "OAuth2Session");
         header.put("authority", "api.twitter.com");
         header.put("accept-language", "en-US,en;q=0.9");
         header.put("accept", "*/*");
