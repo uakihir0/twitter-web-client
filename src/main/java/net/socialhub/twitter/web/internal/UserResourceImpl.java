@@ -22,31 +22,31 @@ public class UserResourceImpl extends AbstractResource implements UserResource {
 
     @Override
     public Response<TopLevel> getUsersLikedBy(
-            SpecifiedTweetRequest request) {
-
+            SpecifiedTweetRequest request
+    ) {
         String path = UserTweetLiked.path();
         return get(path, request, TopLevel.class);
     }
 
     @Override
     public Response<TopLevel> getUsersRetweetedBy(
-            SpecifiedTweetRequest request) {
-
+            SpecifiedTweetRequest request
+    ) {
         String path = UserTweetRetweeted.path();
         return get(path, request, TopLevel.class);
     }
 
     @Override
     public Response<GraphRoot> getUserByScreenName(
-            ScreenNameRequest request) {
-
+            ScreenNameRequest request
+    ) {
         String path = UserByScreenName.path();
         return graphGet(path, request, GraphRoot.class);
     }
 
     public Response<GraphRoot> getUserFollowers(
-            UserIdRequest request) {
-
+            UserIdRequest request
+    ) {
         String path = UsersFollowers.path();
         return graphGet(path, request, GraphRoot.class);
     }

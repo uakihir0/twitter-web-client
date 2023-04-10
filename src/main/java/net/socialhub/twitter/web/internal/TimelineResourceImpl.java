@@ -17,8 +17,8 @@ public class TimelineResourceImpl extends AbstractResource implements TimelineRe
 
     @Override
     public Response<TopLevel> getUserTimeline(
-            UserTimelineRequest request) {
-
+            UserTimelineRequest request
+    ) {
         String path = UserTimeline.path()
                 .replace("{userId}", request.getUserId());
         return get(path, request, TopLevel.class);
@@ -26,8 +26,8 @@ public class TimelineResourceImpl extends AbstractResource implements TimelineRe
 
     @Override
     public Response<TopLevel> getUserMediaTimeline(
-            UserTimelineRequest request) {
-
+            UserTimelineRequest request
+    ) {
         String path = UserMediaTimeline.path()
                 .replace("{userId}", request.getUserId());
         return get(path, request, TopLevel.class);

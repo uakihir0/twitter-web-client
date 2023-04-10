@@ -16,8 +16,8 @@ public class SearchResourceImpl extends AbstractResource implements SearchResour
 
     @Override
     public Response<TopLevel> searchTweets(
-            SearchRequest request) {
-
+            SearchRequest request
+    ) {
         String path = Search.path();
         request.setTweetSearchMode("live");
         return get(path, request, TopLevel.class);
@@ -25,8 +25,8 @@ public class SearchResourceImpl extends AbstractResource implements SearchResour
 
     @Override
     public Response<TopLevel> searchUsers(
-            SearchRequest request) {
-
+            SearchRequest request
+    ) {
         String path = Search.path();
         request.setResultFilter("user");
         return get(path, request, TopLevel.class);

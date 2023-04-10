@@ -21,6 +21,8 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 
 - [x] /1.1/guest/activate.json
 - [x] /1.1/onboarding/task.json
+- [ ] /1.1/friendships/create.json
+- [ ] /1.1/friendships/destroy.json
 
 #### V2
 
@@ -36,6 +38,10 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 - [ ] /graphql/{queryId}/UserByScreenName
 - [ ] /graphql/{queryId}/Followers
 - [x] /graphql/{queryId}/CreateTweet
+- [x] /graphql/{queryId}/FavoriteTweet
+- [x] /graphql/{queryId}/UnfavoriteTweet
+- [x] /graphql/{queryId}/CreateRetweet
+- [x] /graphql/{queryId}/DeleteRetweet
 
 ## Install
 
