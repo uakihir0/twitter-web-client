@@ -31,7 +31,6 @@ public class AbstractTest {
         // 認証情報等の読み込み実行
         String json = readFile("secrets.json");
         if (json != null && !json.isEmpty()) {
-            System.out.println(json);
             secrets = new Gson().fromJson(json, Secrets.class);
         }
 

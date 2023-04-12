@@ -2,6 +2,7 @@ package net.socialhub.twitter.web;
 
 import net.socialhub.twitter.web.TwitterWebClient;
 import net.socialhub.twitter.web.api.FavoriteResource;
+import net.socialhub.twitter.web.api.FriendshipResource;
 import net.socialhub.twitter.web.api.LoginResource;
 import net.socialhub.twitter.web.api.RetweetResource;
 import net.socialhub.twitter.web.api.SearchResource;
@@ -9,6 +10,7 @@ import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.api.TweetResource;
 import net.socialhub.twitter.web.api.UserResource;
 import net.socialhub.twitter.web.internal.FavoriteResourceImpl;
+import net.socialhub.twitter.web.internal.FriendshipResourceImpl;
 import net.socialhub.twitter.web.internal.LoginResourceImpl;
 import net.socialhub.twitter.web.internal.RetweetResourceImpl;
 import net.socialhub.twitter.web.internal.SearchResourceImpl;
@@ -30,6 +32,7 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     private final SearchResource search;
     private final FavoriteResource favorite;
     private final RetweetResource retweet;
+    private final FriendshipResource friendship;
 
     public TwitterWebClientImpl(Config config) {
 
@@ -43,6 +46,7 @@ public class TwitterWebClientImpl implements TwitterWebClient {
         this.search = new SearchResourceImpl(this.session);
         this.favorite = new FavoriteResourceImpl(this.session);
         this.retweet = new RetweetResourceImpl(this.session);
+        this.friendship = new FriendshipResourceImpl(this.session);
     }
 
     public TwitterWebClientImpl() {
@@ -82,6 +86,11 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     @Override
     public RetweetResource retweet() {
         return retweet;
+    }
+
+    @Override
+    public FriendshipResource friendship() {
+        return friendship;
     }
 
     @Override

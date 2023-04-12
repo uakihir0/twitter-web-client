@@ -90,6 +90,22 @@ public abstract class AbstractResource {
         return post(builder, clazz);
     }
 
+
+    /**
+     * Legacy (v1.1) POST Request
+     */
+    public <T> Response<T> legacyPost(String path, Request request, Class<T> clazz) {
+        HttpRequestBuilder builder = getInitializedBuilder(path);
+
+        // ヘッダー & パラメータ を作成
+        Map<String, String> headers = getLegacyHeader();
+        headers.forEach(builder::header);
+        Map<String, String> params = request.params();
+        params.forEach(builder::param);
+
+        return post(builder, clazz);
+    }
+
     /**
      * リクエストを送信
      */
@@ -141,13 +157,13 @@ public abstract class AbstractResource {
     private Map<String, String> getHeader() {
         Map<String, String> header = new HashMap<>();
 
-        header.put("DNT", "1");
         header.put("authorization", config.getAuthentication());
         header.put("content-type", HttpMediaType.APPLICATION_JSON);
         header.put("user-agent", config.getUserAgent());
         header.put("x-csrf-token", session.getCt0());
         header.put("x-guest-token", session.getGuestToken());
         header.put("x-twitter-active-user", "yes");
+
         header.put("cookie", session.getCookie().toString());
         header.put("authority", "api.twitter.com");
         header.put("accept-language", "en-US,en;q=0.9");
@@ -156,6 +172,26 @@ public abstract class AbstractResource {
         return header;
     }
 
+    /**
+     * Make legacy header for Twitter Web API
+     */
+    private Map<String, String> getLegacyHeader() {
+        Map<String, String> header = new HashMap<>();
+
+        header.put("authorization", config.getAuthentication());
+        header.put("content-type", HttpMediaType.APPLICATION_FORM_URLENCODED);
+        header.put("user-agent", config.getUserAgent());
+        header.put("x-csrf-token", session.getCt0());
+        header.put("x-twitter-active-user", "yes");
+        header.put("x-twitter-auth-type", "OAuth2Session");
+
+        header.put("cookie", session.getCookie().toString());
+        header.put("authority", "api.twitter.com");
+        header.put("accept-language", "en-US,en;q=0.9");
+        header.put("accept", "*/*");
+
+        return header;
+    }
 
     /**
      * 初期設定済みのリクエストクライアントを作成

@@ -1,6 +1,7 @@
 package net.socialhub.twitter.web;
 
 import net.socialhub.twitter.web.api.FavoriteResource;
+import net.socialhub.twitter.web.api.FriendshipResource;
 import net.socialhub.twitter.web.api.LoginResource;
 import net.socialhub.twitter.web.api.RetweetResource;
 import net.socialhub.twitter.web.api.SearchResource;
@@ -18,6 +19,7 @@ public interface TwitterWebClient {
     SearchResource search();
     FavoriteResource favorite();
     RetweetResource retweet();
+    FriendshipResource friendship();
 
     Session getSession();
 
