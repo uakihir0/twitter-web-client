@@ -12,7 +12,6 @@ import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
 import net.socialhub.twitter.web.utility.Config;
 import net.socialhub.twitter.web.utility.Session;
 
-import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;

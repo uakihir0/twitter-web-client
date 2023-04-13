@@ -42,6 +42,7 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 - [x] /graphql/{queryId}/UnfavoriteTweet
 - [x] /graphql/{queryId}/CreateRetweet
 - [x] /graphql/{queryId}/DeleteRetweet
+- [x] /graphql/{queryId}/HomeLatestTimeline
 
 ## Install
 

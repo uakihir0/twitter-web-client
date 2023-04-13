@@ -8,7 +8,6 @@ import net.socialhub.twitter.web.entity.request.timeline.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
 import net.socialhub.twitter.web.entity.response.graphql.GraphTweet;
-import net.socialhub.twitter.web.entity.response.graphql.GraphTweetResult;
 import org.junit.Test;
 
 import java.util.List;

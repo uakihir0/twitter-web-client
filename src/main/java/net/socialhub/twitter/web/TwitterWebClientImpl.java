@@ -1,6 +1,5 @@
 package net.socialhub.twitter.web;
 
-import net.socialhub.twitter.web.TwitterWebClient;
 import net.socialhub.twitter.web.api.FavoriteResource;
 import net.socialhub.twitter.web.api.FriendshipResource;
 import net.socialhub.twitter.web.api.LoginResource;

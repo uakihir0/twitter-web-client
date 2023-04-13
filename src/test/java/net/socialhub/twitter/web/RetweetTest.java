@@ -1,6 +1,5 @@
 package net.socialhub.twitter.web;
 
-import net.socialhub.twitter.web.entity.request.favorite.FavoriteTweetRequest;
 import net.socialhub.twitter.web.entity.request.retweet.CreateRetweetRequest;
 import net.socialhub.twitter.web.entity.request.retweet.DeleteRetweetRequest;
 import org.junit.Test;
