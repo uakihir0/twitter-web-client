@@ -1,4 +1,4 @@
-package net.socialhub.twitter.web.entity.request;
+package net.socialhub.twitter.web.entity.request.timeline;
 
 import java.util.Map;
 

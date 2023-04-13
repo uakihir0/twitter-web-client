@@ -12,6 +12,7 @@ import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
 import net.socialhub.twitter.web.utility.Config;
 import net.socialhub.twitter.web.utility.Session;
 
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -140,6 +141,11 @@ public abstract class AbstractResource {
             session.getCookie().set(response
                     .getResponseHeaderFields()
                     .get("set-cookie"));
+
+            // Save response text for debug
+            // FileWriter fw = new FileWriter("response.txt");
+            // fw.write(json);
+            // fw.close();
 
             T value = gson.fromJson(json, clazz);
             return new Response<>(value);

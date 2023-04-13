@@ -1,9 +1,17 @@
 package net.socialhub.twitter.web;
 
+import net.socialhub.logger.Logger;
+import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
-import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
+import net.socialhub.twitter.web.entity.request.timeline.HomeTimelineRequest;
+import net.socialhub.twitter.web.entity.request.timeline.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
+import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
+import net.socialhub.twitter.web.entity.response.graphql.GraphTweet;
+import net.socialhub.twitter.web.entity.response.graphql.GraphTweetResult;
 import org.junit.Test;
+
+import java.util.List;
 
 public class GetTweetTest extends AbstractTest {
 
@@ -52,5 +60,20 @@ public class GetTweetTest extends AbstractTest {
 
         TopLevel top = client.tweet().getTweetConversation(request).get();
         top.toTweetTimeline().forEach(this::printTweet);
+    }
+
+    @Test
+    public void testHomeTimeline() {
+        Logger.getLogger(null).setLogLevel(Logger.LogLevel.WARN);
+
+        Response<GraphRoot> root =
+                client.timeline().getHomeTimeline(
+                        HomeTimelineRequest.builder()
+                                .count(10)
+                                .build()
+                );
+
+        List<GraphTweet> tweets = root.get().getTweets();
+        tweets.forEach(this::printTweet);
     }
 }

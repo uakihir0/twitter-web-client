@@ -5,11 +5,16 @@ import com.google.gson.annotations.SerializedName;
 public class GraphData {
 
     @SerializedName("user")
-    private GraphUser user;
+    private GraphUserResult user;
+    @SerializedName("home")
+    private GraphHomeTimeline home;
 
     // region
-    public GraphUser getUser() {
+    public GraphUserResult getUser() {
         return user;
+    }
+    public GraphHomeTimeline getHome() {
+        return home;
     }
     // endregion
 }

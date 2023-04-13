@@ -1,8 +1,10 @@
 package net.socialhub.twitter.web.api;
 
 import net.socialhub.twitter.web.entity.Response;
-import net.socialhub.twitter.web.entity.request.UserTimelineRequest;
+import net.socialhub.twitter.web.entity.request.timeline.HomeTimelineRequest;
+import net.socialhub.twitter.web.entity.request.timeline.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
+import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
 
 public interface TimelineResource {
 
@@ -19,4 +21,11 @@ public interface TimelineResource {
      * 特定ユーザーのメディアを取得
      */
     Response<TopLevel> getUserMediaTimeline(UserTimelineRequest request);
+
+
+    /**
+     * Get User's HomeTimeline
+     * ユーザーのタイムラインを取得
+     */
+    Response<GraphRoot> getHomeTimeline(HomeTimelineRequest request);
 }

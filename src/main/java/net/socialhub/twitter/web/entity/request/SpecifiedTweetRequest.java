@@ -1,5 +1,7 @@
 package net.socialhub.twitter.web.entity.request;
 
+import net.socialhub.twitter.web.entity.request.timeline.TimelineRequest;
+
 import java.util.Map;
 
 public class SpecifiedTweetRequest extends TimelineRequest {

@@ -6,24 +6,30 @@ public class GraphItem {
 
     @SerializedName("itemType")
     private String itemType;
-
-    // User
     @SerializedName("user")
-    private GraphUser user;
+    private GraphUserResult user;
     @SerializedName("userDisplayType")
     private String userDisplayType;
+    @SerializedName("tweet_results")
+    private GraphTweetResults tweetResults;
+    @SerializedName("tweetDisplayType")
+    private String tweetDisplayType;
 
     // region
     public String getItemType() {
         return itemType;
     }
 
-    public GraphUser getUser() {
+    public GraphUserResult getUser() {
         return user;
     }
 
     public String getUserDisplayType() {
         return userDisplayType;
+    }
+
+    public GraphTweetResults getTweetResults() {
+        return tweetResults;
     }
     // endregion
 }

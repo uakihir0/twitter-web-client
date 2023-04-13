@@ -26,6 +26,7 @@ public enum Endpoint {
     UnfavoriteTweet("/graphql/ZYKSe-w7KEslx3JhSIk5LA/UnfavoriteTweet"),
     CreateRetweet("/graphql/ojPdsZsimiJrUGLR1sjUtA/CreateRetweet"),
     DeleteRetweet("/graphql/iQtK4dl5hBmXewYZuEOKVw/DeleteRetweet"),
+    HomeLatestTimeline("/graphql/37RUvMgTiEVYYfrRTVDxpw/HomeLatestTimeline"),
     // endregion
 
     ;
