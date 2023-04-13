@@ -4,6 +4,7 @@ import net.socialhub.logger.Logger;
 import net.socialhub.twitter.web.entity.Response;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.timeline.HomeTimelineRequest;
+import net.socialhub.twitter.web.entity.request.timeline.RecommendTimelineRequest;
 import net.socialhub.twitter.web.entity.request.timeline.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
@@ -68,6 +69,21 @@ public class GetTweetTest extends AbstractTest {
         Response<GraphRoot> root =
                 client.timeline().getHomeTimeline(
                         HomeTimelineRequest.builder()
+                                .count(10)
+                                .build()
+                );
+
+        List<GraphTweet> tweets = root.get().getTweets();
+        tweets.forEach(this::printTweet);
+    }
+
+    @Test
+    public void testRecommendTimeline() {
+        Logger.getLogger(null).setLogLevel(Logger.LogLevel.WARN);
+
+        Response<GraphRoot> root =
+                client.timeline().getRecommendTimeline(
+                        RecommendTimelineRequest.builder()
                                 .count(10)
                                 .build()
                 );
