@@ -32,6 +32,7 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 - [x] /2/timeline/media/{userId}.json
 - [x] /2/timeline/conversation/{tweetId}.json
 - [x] /2/search/adaptive.json
+- [x] /2/notifications/mentions.json
 
 #### GraphQL
 
@@ -44,6 +45,7 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 - [x] /graphql/{queryId}/DeleteRetweet
 - [x] /graphql/{queryId}/HomeTimeline
 - [x] /graphql/{queryId}/HomeLatestTimeline
+- [x] /graphql/{queryId}/Bookmarks
 
 ## Install
 
@@ -78,8 +80,10 @@ You can access Twitter resources just only use this client library, as bellow.
 // Get tweets from specified user.
 
 TwitterWebClient client = new TwitterWebClient.Builder().build();
-UserTimelineRequest request = new UserTimelineRequest();
-request.setUserId("USER_ID");
+UserTimelineRequest request = UserTimelineRequest
+        .builder()
+        .userId("USER_ID")
+        .build();
 
 client.timeline().getUserTimeline(request);
 ```
@@ -88,8 +92,10 @@ client.timeline().getUserTimeline(request);
 // Get users who liked or retweeted specified tweet.
 
 TwitterWebClient client = new TwitterWebClient.Builder().build();
-SpecifiedTweetRequest request = new SpecifiedTweetRequest();
-request.setTweetId("TWEET_ID");
+SpecifiedTweetRequest request = SpecifiedTweetRequest
+        .builder()
+        .tweetId("TWEET_ID")
+        .build();
 
 client.timeline().getUsersLikedBy(request);
 client.timeline().getUsersRetweetedBy(request);

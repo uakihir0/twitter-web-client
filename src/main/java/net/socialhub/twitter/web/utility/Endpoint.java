@@ -16,6 +16,7 @@ public enum Endpoint {
     UserMediaTimeline("/2/timeline/media/{userId}.json"),
     TweetConversation("/2/timeline/conversation/{tweetId}.json"),
     Search("/2/search/adaptive.json"),
+    Mention("/2/notifications/mentions.json"),
     // endregion
 
     // region GraphQL
@@ -28,6 +29,7 @@ public enum Endpoint {
     DeleteRetweet("/graphql/iQtK4dl5hBmXewYZuEOKVw/DeleteRetweet"),
     HomeTimeline("/graphql/ILPEegjZTQ_3mOUc7pWCpA/HomeTimeline"),
     HomeLatestTimeline("/graphql/37RUvMgTiEVYYfrRTVDxpw/HomeLatestTimeline"),
+    Bookmarks("/graphql/ThwoU-Q6_9oZHwxtWdpoPw/Bookmarks"),
     // endregion
 
     ;

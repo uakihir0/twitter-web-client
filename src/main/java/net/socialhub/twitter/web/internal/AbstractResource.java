@@ -5,18 +5,16 @@ import net.socialhub.http.HttpMediaType;
 import net.socialhub.http.HttpRequestBuilder;
 import net.socialhub.http.HttpResponse;
 import net.socialhub.logger.Logger;
-import net.socialhub.twitter.web.entity.Request;
-import net.socialhub.twitter.web.entity.Response;
+import net.socialhub.twitter.web.entity.request.Request;
+import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.other.TwitterWebException;
-import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
+import net.socialhub.twitter.web.entity.request.GraphRequest;
 import net.socialhub.twitter.web.utility.Config;
 import net.socialhub.twitter.web.utility.Session;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import static java.util.Collections.singletonMap;
 
 public abstract class AbstractResource {
     public static final Logger log = Logger.getLogger(AbstractResource.class);
@@ -69,9 +67,11 @@ public abstract class AbstractResource {
         Map<String, String> headers = getHeader();
         headers.forEach(builder::header);
         Map<String, Object> params = request.params();
-        System.out.println(gson.toJson(params));
-        Map<String, String> variables = singletonMap("variables", gson.toJson(params));
-        variables.forEach(builder::param);
+        params.forEach(builder::param);
+
+        //System.out.println(gson.toJson(params));
+        //Map<String, String> variables = singletonMap("variables", gson.toJson(params));
+        //variables.forEach(builder::param);
 
         return get(builder, clazz);
     }

@@ -1,6 +1,6 @@
 package net.socialhub.twitter.web.api;
 
-import net.socialhub.twitter.web.entity.Response;
+import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.request.retweet.CreateRetweetRequest;
 import net.socialhub.twitter.web.entity.request.retweet.DeleteRetweetRequest;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;

@@ -57,6 +57,19 @@ public class TopLevel {
     }
 
     /**
+     * Convert to MentionTweetsTimeline
+     */
+    public List<Tweet> toMentionTweetsTimeline() {
+        Map<String, Tweet> map = globalObjects.getTweets();
+        List<Entry> entries = getEntries("notification-");
+
+        return entries.stream()
+                .map(e -> e.getContent().getItem().getContent())
+                .map(e -> map.get(e.getTweet().getId()))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Get Top Cursor.
      * If not found, return null.
      */

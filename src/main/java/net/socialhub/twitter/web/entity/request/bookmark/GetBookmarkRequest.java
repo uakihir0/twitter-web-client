@@ -1,16 +1,14 @@
-package net.socialhub.twitter.web.entity.request.timeline;
+package net.socialhub.twitter.web.entity.request.bookmark;
 
 import net.socialhub.twitter.web.entity.request.GraphRequest;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class HomeTimelineRequest implements GraphRequest {
+public class GetBookmarkRequest implements GraphRequest {
 
     private Integer count;
     private String cursor;
-    private List<String> seenTweetIds;
     private Boolean includePromotedContent;
 
     @Override
@@ -18,10 +16,7 @@ public class HomeTimelineRequest implements GraphRequest {
 
         Map<String, Object> variables = new HashMap<>();
         put(variables, "count", getCount());
-        put(variables, "seenTweetIds", getSeenTweetIds());
         put(variables, "includePromotedContent", getIncludePromotedContent());
-        put(variables, "latestControlAvailable", true);
-        put(variables, "requestContext", "launch");
         put(variables, "withDownvotePerspective", false);
 
         if (getCursor() != null) {
@@ -35,10 +30,11 @@ public class HomeTimelineRequest implements GraphRequest {
         }
 
         Map<String, Object> features = new HashMap<>();
+        put(features, "graphql_timeline_v2_bookmark_timeline", true);
         put(features, "blue_business_profile_image_shape_enabled", false);
         put(features, "responsive_web_graphql_exclude_directive_enabled", true);
         put(features, "verified_phone_label_enabled", false);
-        put(features, "responsive_web_graphql_timeline_navigation_enabled", false);
+        put(features, "responsive_web_graphql_timeline_navigation_enabled", true);
         put(features, "responsive_web_graphql_skip_user_profile_image_extensions_enabled", false);
         put(features, "tweetypie_unmention_optimization_enabled", true);
         put(features, "vibe_api_enabled", true);
@@ -56,16 +52,15 @@ public class HomeTimelineRequest implements GraphRequest {
         put(features, "responsive_web_enhance_cards_enabled", false);
 
         Map<String, Object> params = new HashMap<>();
-        put(params, "queryId", "37RUvMgTiEVYYfrRTVDxpw");
-        put(params, "variables", variables);
-        put(params, "features", features);
+        put(params, "variables", getGson().toJson(variables));
+        put(params, "features", getGson().toJson(features));
 
         return params;
     }
 
     // region
-    public static HomeTimelineRequestBuilder builder() {
-        return new HomeTimelineRequestBuilder();
+    public static GetBookmarkRequestBuilder builder() {
+        return new GetBookmarkRequestBuilder();
     }
 
     public Integer getCount() {
@@ -76,51 +71,39 @@ public class HomeTimelineRequest implements GraphRequest {
         return cursor;
     }
 
-    public List<String> getSeenTweetIds() {
-        return seenTweetIds;
-    }
-
     public Boolean getIncludePromotedContent() {
         return includePromotedContent;
     }
 
-
-    public static final class HomeTimelineRequestBuilder {
-        private Integer count = 10;
+    public static final class GetBookmarkRequestBuilder {
+        private Integer count = 20;
         private String cursor;
-        private List<String> seenTweetIds;
-        private Boolean includePromotedContent = false;
+        private Boolean includePromotedContent = true;
 
-        private HomeTimelineRequestBuilder() {
+        private GetBookmarkRequestBuilder() {
         }
 
-        public HomeTimelineRequestBuilder count(Integer count) {
+        public GetBookmarkRequestBuilder count(Integer count) {
             this.count = count;
             return this;
         }
 
-        public HomeTimelineRequestBuilder cursor(String cursor) {
+        public GetBookmarkRequestBuilder cursor(String cursor) {
             this.cursor = cursor;
             return this;
         }
 
-        public HomeTimelineRequestBuilder seenTweetIds(List<String> seenTweetIds) {
-            this.seenTweetIds = seenTweetIds;
-            return this;
-        }
-
-        public HomeTimelineRequestBuilder includePromotedContent(Boolean includePromotedContent) {
+        public GetBookmarkRequestBuilder includePromotedContent(Boolean includePromotedContent) {
             this.includePromotedContent = includePromotedContent;
             return this;
         }
 
-        public HomeTimelineRequest build() {
-            HomeTimelineRequest homeTimelineRequest = new HomeTimelineRequest();
-            homeTimelineRequest.includePromotedContent = this.includePromotedContent;
-            homeTimelineRequest.cursor = this.cursor;
-            homeTimelineRequest.count = this.count;
-            homeTimelineRequest.seenTweetIds = this.seenTweetIds;
-            return homeTimelineRequest;
+        public GetBookmarkRequest build() {
+            GetBookmarkRequest getBookmarkRequest = new GetBookmarkRequest();
+            getBookmarkRequest.includePromotedContent = this.includePromotedContent;
+            getBookmarkRequest.cursor = this.cursor;
+            getBookmarkRequest.count = this.count;
+            return getBookmarkRequest;
         }
     }
     // endregion

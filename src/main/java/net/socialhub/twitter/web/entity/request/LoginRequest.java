@@ -26,7 +26,6 @@ public class LoginRequest {
         private LoginRequestBuilder() {
         }
 
-
         public LoginRequestBuilder username(String username) {
             this.username = username;
             return this;

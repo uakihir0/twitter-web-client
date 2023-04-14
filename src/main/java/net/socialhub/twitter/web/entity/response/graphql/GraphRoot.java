@@ -13,9 +13,24 @@ public class GraphRoot {
     private GraphData data;
 
     public List<GraphTweet> getTweets() {
-        GraphInstruction[] instructions = data.getHome()
-                .getHomeTimelineUrt()
-                .getInstructions();
+        GraphInstruction[] instructions = null;
+
+        // For HomeTimelines
+        if (data.getHome() != null) {
+            instructions = data.getHome()
+                    .getHomeTimelineUrt()
+                    .getInstructions();
+        }
+        // For BookmarkTimeline
+        if (data.getBookmark() != null) {
+            instructions = data.getBookmark()
+                    .getTimeline()
+                    .getInstructions();
+        }
+
+        if (instructions == null) {
+            return null;
+        }
 
         return Stream.of(instructions)
                 .map(GraphInstruction::getEntries)

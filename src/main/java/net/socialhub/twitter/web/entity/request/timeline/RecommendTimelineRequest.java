@@ -1,6 +1,6 @@
 package net.socialhub.twitter.web.entity.request.timeline;
 
-import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
+import net.socialhub.twitter.web.entity.request.GraphRequest;
 
 import java.util.HashMap;
 import java.util.List;

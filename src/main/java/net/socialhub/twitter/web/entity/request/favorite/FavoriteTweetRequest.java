@@ -1,7 +1,6 @@
 package net.socialhub.twitter.web.entity.request.favorite;
 
-import com.google.gson.Gson;
-import net.socialhub.twitter.web.entity.request.graphql.GraphRequest;
+import net.socialhub.twitter.web.entity.request.GraphRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +16,7 @@ public class FavoriteTweetRequest implements GraphRequest {
 
         Map<String, Object> params = new HashMap<>();
         put(params, "queryId", "lI07N6Otwv1PhnEgXILM7A");
-        put(params, "variables", new Gson().toJson(variables));
+        put(params, "variables", getGson().toJson(variables));
         return params;
     }
 

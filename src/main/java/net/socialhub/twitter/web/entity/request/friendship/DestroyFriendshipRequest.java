@@ -1,6 +1,6 @@
 package net.socialhub.twitter.web.entity.request.friendship;
 
-import net.socialhub.twitter.web.entity.Request;
+import net.socialhub.twitter.web.entity.request.Request;
 
 import java.util.HashMap;
 import java.util.Map;

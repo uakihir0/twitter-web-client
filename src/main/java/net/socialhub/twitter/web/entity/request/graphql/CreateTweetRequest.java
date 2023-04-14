@@ -1,6 +1,6 @@
 package net.socialhub.twitter.web.entity.request.graphql;
 
-import com.google.gson.Gson;
+import net.socialhub.twitter.web.entity.request.GraphRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class CreateTweetRequest implements GraphRequest {
 
         Map<String, Object> params = new HashMap<>();
         put(params, "queryId", "XyvN0Wv13eeu_gVIHDi10g");
-        put(params, "variables", new Gson().toJson(variables));
+        put(params, "variables", getGson().toJson(variables));
         return params;
     }
 

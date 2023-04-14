@@ -1,6 +1,6 @@
 package net.socialhub.twitter.web;
 
-import net.socialhub.twitter.web.entity.Response;
+import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.graphql.ScreenNameRequest;
 import net.socialhub.twitter.web.entity.request.graphql.UserIdRequest;
@@ -15,15 +15,18 @@ public class GetUserTest extends AbstractTest {
     @Test
     public void testUsersLikedRetweetedBy() {
         TwitterWebClient client = new TwitterWebClient.Builder().build();
-        SpecifiedTweetRequest request = new SpecifiedTweetRequest();
-        request.setTweetId("1232157896453963776");
-
         {
-            TopLevel top = client.user().getUsersLikedBy(request).get();
+            TopLevel top = client.user().getUsersLikedBy(
+                    SpecifiedTweetRequest.builder()
+                            .tweetId("1232157896453963776")
+                            .build()).get();
             top.toUserTimeline().forEach(this::printUser);
         }
         {
-            TopLevel top = client.user().getUsersRetweetedBy(request).get();
+            TopLevel top = client.user().getUsersRetweetedBy(
+                    SpecifiedTweetRequest.builder()
+                            .tweetId("1232157896453963776")
+                            .build()).get();
             top.toUserTimeline().forEach(this::printUser);
         }
     }
@@ -31,8 +34,9 @@ public class GetUserTest extends AbstractTest {
     @Test
     public void testUserByScreenName() {
         TwitterWebClient client = new TwitterWebClient.Builder().build();
-        ScreenNameRequest request = new ScreenNameRequest();
-        request.setScreenName("uakihir0");
+        ScreenNameRequest request = ScreenNameRequest.builder()
+                .screenName("uakihir0")
+                .build();
 
         Response<GraphRoot> root = client.user().getUserByScreenName(request);
         this.printUser(root.get().getData().getUser().getLegacy());
@@ -41,8 +45,9 @@ public class GetUserTest extends AbstractTest {
     @Test
     public void testUserFollowers() {
         TwitterWebClient client = new TwitterWebClient.Builder().build();
-        UserIdRequest request = new UserIdRequest();
-        request.setUserId("362220012");
+        UserIdRequest request = UserIdRequest.builder()
+                .userId("362220012")
+                .build();
 
         Response<GraphRoot> root = ((UserResourceImpl) client.user())
                 .getUserFollowers(request);

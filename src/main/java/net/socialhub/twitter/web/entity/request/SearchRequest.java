@@ -1,7 +1,5 @@
 package net.socialhub.twitter.web.entity.request;
 
-import net.socialhub.twitter.web.entity.Request;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +21,6 @@ public class SearchRequest implements Request {
 
     @Override
     public Map<String, String> params() {
-
         Map<String, String> params = new HashMap<>();
 
         put(params, "q", query);

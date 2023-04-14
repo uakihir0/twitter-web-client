@@ -1,7 +1,7 @@
 package net.socialhub.twitter.web.internal;
 
 import net.socialhub.twitter.web.api.UserResource;
-import net.socialhub.twitter.web.entity.Response;
+import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.graphql.ScreenNameRequest;
 import net.socialhub.twitter.web.entity.request.graphql.UserIdRequest;

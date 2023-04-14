@@ -1,4 +1,7 @@
-package net.socialhub.twitter.web.entity.request.graphql;
+package net.socialhub.twitter.web.entity.request;
+
+import com.google.gson.Gson;
+import net.socialhub.twitter.web.internal.AbstractResource;
 
 import java.util.Map;
 
@@ -10,5 +13,9 @@ public interface GraphRequest {
         if (key != null && value != null) {
             params.put(key, value);
         }
+    }
+
+    default Gson getGson() {
+        return AbstractResource.gson;
     }
 }

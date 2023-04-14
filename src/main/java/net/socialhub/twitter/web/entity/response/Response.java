@@ -1,4 +1,4 @@
-package net.socialhub.twitter.web.entity;
+package net.socialhub.twitter.web.entity.response;
 
 public class Response<T> {
 

@@ -1,16 +1,20 @@
 package net.socialhub.twitter.web;
 
+import net.socialhub.twitter.web.api.BookmarkResource;
 import net.socialhub.twitter.web.api.FavoriteResource;
 import net.socialhub.twitter.web.api.FriendshipResource;
 import net.socialhub.twitter.web.api.LoginResource;
+import net.socialhub.twitter.web.api.NotificationResource;
 import net.socialhub.twitter.web.api.RetweetResource;
 import net.socialhub.twitter.web.api.SearchResource;
 import net.socialhub.twitter.web.api.TimelineResource;
 import net.socialhub.twitter.web.api.TweetResource;
 import net.socialhub.twitter.web.api.UserResource;
+import net.socialhub.twitter.web.internal.BookmarkResourceImpl;
 import net.socialhub.twitter.web.internal.FavoriteResourceImpl;
 import net.socialhub.twitter.web.internal.FriendshipResourceImpl;
 import net.socialhub.twitter.web.internal.LoginResourceImpl;
+import net.socialhub.twitter.web.internal.NotificationResourceImpl;
 import net.socialhub.twitter.web.internal.RetweetResourceImpl;
 import net.socialhub.twitter.web.internal.SearchResourceImpl;
 import net.socialhub.twitter.web.internal.TimelineResourceImpl;
@@ -32,6 +36,8 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     private final FavoriteResource favorite;
     private final RetweetResource retweet;
     private final FriendshipResource friendship;
+    private final BookmarkResource bookmark;
+    private final NotificationResource notification;
 
     public TwitterWebClientImpl(Config config) {
 
@@ -46,6 +52,8 @@ public class TwitterWebClientImpl implements TwitterWebClient {
         this.favorite = new FavoriteResourceImpl(this.session);
         this.retweet = new RetweetResourceImpl(this.session);
         this.friendship = new FriendshipResourceImpl(this.session);
+        this.bookmark = new BookmarkResourceImpl(this.session);
+        this.notification = new NotificationResourceImpl(this.session);
     }
 
     public TwitterWebClientImpl() {
@@ -90,6 +98,16 @@ public class TwitterWebClientImpl implements TwitterWebClient {
     @Override
     public FriendshipResource friendship() {
         return friendship;
+    }
+
+    @Override
+    public BookmarkResource bookmark() {
+        return bookmark;
+    }
+
+    @Override
+    public NotificationResource notification() {
+        return notification;
     }
 
     @Override

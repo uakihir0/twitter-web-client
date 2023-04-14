@@ -8,6 +8,8 @@ public class GraphData {
     private GraphUserResult user;
     @SerializedName("home")
     private GraphHomeTimeline home;
+    @SerializedName("bookmark_timeline_v2")
+    private GraphBookmarkTimeline bookmark;
 
     // region
     public GraphUserResult getUser() {
@@ -15,6 +17,9 @@ public class GraphData {
     }
     public GraphHomeTimeline getHome() {
         return home;
+    }
+    public GraphBookmarkTimeline getBookmark() {
+        return bookmark;
     }
     // endregion
 }
