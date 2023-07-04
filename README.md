@@ -26,17 +26,20 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 
 #### V2
 
-- [x] /2/timeline/profile/{userId}.json
 - [x] /2/timeline/liked_by.json
 - [x] /2/timeline/retweeted_by.json
 - [x] /2/timeline/media/{userId}.json
-- [x] /2/timeline/conversation/{tweetId}.json
-- [x] /2/search/adaptive.json
 - [x] /2/notifications/mentions.json
+
+
+- [x] ~~/2/search/adaptive.json~~ (api deleted)
+- [x] ~~/2/timeline/profile/{userId}.json~~ (api deleted)
+- [x] ~~/2/timeline/conversation/{tweetId}.json~~ (api deleted)
 
 #### GraphQL
 
 - [ ] /graphql/{queryId}/UserByScreenName
+- [ ] /graphql/{queryId}/Following
 - [ ] /graphql/{queryId}/Followers
 - [x] /graphql/{queryId}/CreateTweet
 - [x] /graphql/{queryId}/FavoriteTweet
@@ -46,6 +49,10 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 - [x] /graphql/{queryId}/HomeTimeline
 - [x] /graphql/{queryId}/HomeLatestTimeline
 - [x] /graphql/{queryId}/Bookmarks
+- [x] /graphql/{queryId}/UserTweets
+- [x] /graphql/{queryId}/UserMedia
+- [ ] /graphql/{queryId}/TweetDetail
+- [x] /graphql/{queryId}/SearchTimeline
 
 ## Install
 
