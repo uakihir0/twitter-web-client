@@ -1,12 +1,12 @@
 package net.socialhub.twitter.web.internal;
 
 import net.socialhub.twitter.web.api.SearchResource;
+import net.socialhub.twitter.web.entity.request.timeline.SearchTimelineRequest;
 import net.socialhub.twitter.web.entity.response.Response;
-import net.socialhub.twitter.web.entity.request.SearchRequest;
-import net.socialhub.twitter.web.entity.response.TopLevel;
+import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
 import net.socialhub.twitter.web.utility.Session;
 
-import static net.socialhub.twitter.web.utility.Endpoint.Search;
+import static net.socialhub.twitter.web.utility.Endpoint.SearchTimeline;
 
 public class SearchResourceImpl extends AbstractResource implements SearchResource {
 
@@ -15,20 +15,20 @@ public class SearchResourceImpl extends AbstractResource implements SearchResour
     }
 
     @Override
-    public Response<TopLevel> searchTweets(
-            SearchRequest request
+    public Response<GraphRoot> searchTweets(
+            SearchTimelineRequest request
     ) {
-        String path = Search.path();
-        request.setTweetSearchMode("live");
-        return get(path, request, TopLevel.class);
+        String path = SearchTimeline.path();
+        request.setProduct("Top");
+        return graphGet(path, request, GraphRoot.class);
     }
 
     @Override
-    public Response<TopLevel> searchUsers(
-            SearchRequest request
+    public Response<GraphRoot> searchUsers(
+            SearchTimelineRequest request
     ) {
-        String path = Search.path();
-        request.setResultFilter("user");
-        return get(path, request, TopLevel.class);
+        String path = SearchTimeline.path();
+        request.setProduct("People");
+        return graphGet(path, request, GraphRoot.class);
     }
 }

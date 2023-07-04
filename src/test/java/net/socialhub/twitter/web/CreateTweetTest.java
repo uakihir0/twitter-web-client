@@ -1,6 +1,6 @@
 package net.socialhub.twitter.web;
 
-import net.socialhub.twitter.web.entity.request.graphql.CreateTweetRequest;
+import net.socialhub.twitter.web.entity.request.CreateTweetRequest;
 import org.junit.Test;
 
 public class CreateTweetTest extends AbstractTest {

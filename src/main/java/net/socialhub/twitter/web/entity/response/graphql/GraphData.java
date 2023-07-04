@@ -1,6 +1,10 @@
 package net.socialhub.twitter.web.entity.response.graphql;
 
 import com.google.gson.annotations.SerializedName;
+import net.socialhub.twitter.web.entity.response.graphql.request.GraphHomeTimeline;
+import net.socialhub.twitter.web.entity.response.graphql.request.GraphSearchResult;
+import net.socialhub.twitter.web.entity.response.graphql.request.GraphTimelineResult;
+import net.socialhub.twitter.web.entity.response.graphql.request.GraphUserResult;
 
 public class GraphData {
 
@@ -8,8 +12,10 @@ public class GraphData {
     private GraphUserResult user;
     @SerializedName("home")
     private GraphHomeTimeline home;
+    @SerializedName("search_by_raw_query")
+    private GraphSearchResult search;
     @SerializedName("bookmark_timeline_v2")
-    private GraphBookmarkTimeline bookmark;
+    private GraphTimelineResult bookmark;
 
     // region
     public GraphUserResult getUser() {
@@ -18,8 +24,11 @@ public class GraphData {
     public GraphHomeTimeline getHome() {
         return home;
     }
-    public GraphBookmarkTimeline getBookmark() {
+    public GraphTimelineResult getBookmark() {
         return bookmark;
+    }
+    public GraphSearchResult getSearch() {
+        return search;
     }
     // endregion
 }

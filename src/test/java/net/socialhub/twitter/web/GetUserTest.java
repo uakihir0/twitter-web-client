@@ -2,8 +2,8 @@ package net.socialhub.twitter.web;
 
 import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
-import net.socialhub.twitter.web.entity.request.graphql.ScreenNameRequest;
-import net.socialhub.twitter.web.entity.request.graphql.UserIdRequest;
+import net.socialhub.twitter.web.entity.request.ScreenNameRequest;
+import net.socialhub.twitter.web.entity.request.UserIdRequest;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.entity.response.graphql.GraphEntry;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;

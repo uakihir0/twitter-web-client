@@ -1,5 +1,6 @@
 package net.socialhub.twitter.web.api;
 
+import net.socialhub.twitter.web.entity.request.timeline.UserMediaTimelineRequest;
 import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.request.timeline.HomeTimelineRequest;
 import net.socialhub.twitter.web.entity.request.timeline.RecommendTimelineRequest;
@@ -14,14 +15,14 @@ public interface TimelineResource {
      * (Only for public users)
      * 特定ユーザーのツイートを取得
      */
-    Response<TopLevel> getUserTimeline(UserTimelineRequest request);
+    Response<GraphRoot> getUserTimeline(UserTimelineRequest request);
 
     /**
      * Get User's Media Timeline
      * (Only for public users)
      * 特定ユーザーのメディアを取得
      */
-    Response<TopLevel> getUserMediaTimeline(UserTimelineRequest request);
+    Response<GraphRoot> getUserMediaTimeline(UserMediaTimelineRequest request);
 
 
     /**

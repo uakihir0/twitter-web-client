@@ -1,6 +1,7 @@
 package net.socialhub.twitter.web.internal;
 
 import net.socialhub.twitter.web.api.TimelineResource;
+import net.socialhub.twitter.web.entity.request.timeline.UserMediaTimelineRequest;
 import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.request.timeline.HomeTimelineRequest;
 import net.socialhub.twitter.web.entity.request.timeline.RecommendTimelineRequest;
@@ -21,21 +22,19 @@ public class TimelineResourceImpl extends AbstractResource implements TimelineRe
     }
 
     @Override
-    public Response<TopLevel> getUserTimeline(
+    public Response<GraphRoot> getUserTimeline(
             UserTimelineRequest request
     ) {
-        String path = UserTimeline.path()
-                .replace("{userId}", request.getUserId());
-        return get(path, request, TopLevel.class);
+        String path = UserTimeline.path();
+        return graphGet(path, request, GraphRoot.class);
     }
 
     @Override
-    public Response<TopLevel> getUserMediaTimeline(
-            UserTimelineRequest request
+    public Response<GraphRoot> getUserMediaTimeline(
+            UserMediaTimelineRequest request
     ) {
-        String path = UserMediaTimeline.path()
-                .replace("{userId}", request.getUserId());
-        return get(path, request, TopLevel.class);
+        String path = UserMediaTimeline.path();
+        return graphGet(path, request, GraphRoot.class);
     }
 
     @Override

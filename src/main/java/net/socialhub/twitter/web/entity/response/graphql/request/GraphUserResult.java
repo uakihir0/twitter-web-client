@@ -1,13 +1,11 @@
-package net.socialhub.twitter.web.entity.response.graphql;
+package net.socialhub.twitter.web.entity.response.graphql.request;
 
 import com.google.gson.annotations.SerializedName;
 import net.socialhub.twitter.web.entity.response.Profile;
 import net.socialhub.twitter.web.entity.response.User;
+import net.socialhub.twitter.web.entity.response.graphql.GraphUser;
+import net.socialhub.twitter.web.entity.response.graphql.GraphUserTimeline;
 
-/**
- * TODO:
- * "affiliates_highlighted_label": {}
- */
 public class GraphUserResult {
 
     @SerializedName("id")
@@ -16,9 +14,10 @@ public class GraphUserResult {
     private String restId;
     @SerializedName("legacy")
     private GraphUser legacy;
+    @SerializedName("result")
+    private GraphResult result;
     @SerializedName("legacy_extended_profile")
     private Profile legacyExtendedProfile;
-
     @SerializedName("followers_timeline")
     private GraphUserTimeline followersTimeline;
 
@@ -33,6 +32,10 @@ public class GraphUserResult {
 
     public User getLegacy() {
         return legacy;
+    }
+
+    public GraphResult getResult() {
+        return result;
     }
 
     public Profile getLegacyExtendedProfile() {

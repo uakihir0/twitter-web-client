@@ -1,6 +1,7 @@
 package net.socialhub.twitter.web.entity.response.graphql;
 
 import com.google.gson.annotations.SerializedName;
+import net.socialhub.twitter.web.entity.other.InstructionType;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,11 +29,30 @@ public class GraphRoot {
                     .getInstructions();
         }
 
+        // For SearchTimeline
+        if (data.getSearch() != null) {
+            instructions = data.getSearch()
+                    .getSearchTimeline()
+                    .getTimeline()
+                    .getInstructions();
+        }
+
+        // For UserTimeline
+        // For UserMediaTimeline
+        if (data.getUser() != null) {
+            instructions = data.getUser()
+                    .getResult()
+                    .getTimeline()
+                    .getTimeline()
+                    .getInstructions();
+        }
+
         if (instructions == null) {
             return null;
         }
 
         return Stream.of(instructions)
+                .filter(it -> it.getType().equals(InstructionType.TimelineAddEntries))
                 .map(GraphInstruction::getEntries)
                 .flatMap(Stream::of)
                 .map(it -> {
