@@ -1,6 +1,6 @@
 # Tweet
 
-```json
+```
 {
   "data": {
     "search_by_raw_query": {
