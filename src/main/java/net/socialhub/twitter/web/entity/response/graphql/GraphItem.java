@@ -13,6 +13,8 @@ public class GraphItem {
     private String userDisplayType;
     @SerializedName("tweet_results")
     private GraphTweetResults tweetResults;
+    @SerializedName("user_results")
+    private GraphUserResults userResults;
     @SerializedName("tweetDisplayType")
     private String tweetDisplayType;
 
@@ -31,6 +33,10 @@ public class GraphItem {
 
     public GraphTweetResults getTweetResults() {
         return tweetResults;
+    }
+
+    public GraphUserResults getUserResults() {
+        return userResults;
     }
     // endregion
 }

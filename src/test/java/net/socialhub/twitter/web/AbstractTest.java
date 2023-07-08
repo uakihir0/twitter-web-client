@@ -2,6 +2,7 @@ package net.socialhub.twitter.web;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import net.socialhub.twitter.web.entity.group.TweetTimeline;
 import net.socialhub.twitter.web.entity.response.Tweet;
 import net.socialhub.twitter.web.entity.response.User;
 import net.socialhub.twitter.web.model.Secrets;
@@ -90,17 +91,27 @@ public class AbstractTest {
         }
     }
 
-    public void printTweet(Tweet tweet) {
 
-        System.out.println("------------------------------------");
-        System.out.println("ID   : " + tweet.getId());
-        System.out.println("TEXT : " + tweet.getFullText());
+    public void print(TweetTimeline timeline) {
+        timeline.getTweet().forEach(this::print);
+
+        System.out.println("[Cursor] -----------------------------------");
+        System.out.println("Top    : " + timeline.getCursorTop());
+        System.out.println("Bottom : " + timeline.getCursorBottom());
+        System.out.println();
     }
 
-    public void printUser(User user) {
+    public void print(Tweet tweet) {
+        System.out.println("[Tweet] -----------------------------------");
+        System.out.println("ID   : " + tweet.getId());
+        System.out.println("TEXT : " + tweet.getFullText());
+        System.out.println();
+    }
 
-        System.out.println("------------------------------------");
+    public void print(User user) {
+        System.out.println("[User] ------------------------------------");
         System.out.println("ID   : " + user.getId());
         System.out.println("NAME : " + user.getName());
+        System.out.println();
     }
 }

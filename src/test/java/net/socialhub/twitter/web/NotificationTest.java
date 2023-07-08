@@ -16,6 +16,6 @@ public class NotificationTest extends AbstractTest {
                         .build());
 
         response.get().toMentionTweetsTimeline()
-                .forEach(this::printTweet);
+                .forEach(this::print);
     }
 }

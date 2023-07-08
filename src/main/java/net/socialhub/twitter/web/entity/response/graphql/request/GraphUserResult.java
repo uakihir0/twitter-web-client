@@ -30,7 +30,7 @@ public class GraphUserResult {
         return restId;
     }
 
-    public User getLegacy() {
+    public GraphUser getLegacy() {
         return legacy;
     }
 

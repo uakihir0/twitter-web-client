@@ -2,6 +2,8 @@ package net.socialhub.twitter.web.entity.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Arrays;
+
 /**
  * Tweet
  */
@@ -13,7 +15,6 @@ public class Tweet {
     private String userId;
     @SerializedName("conversation_id_str")
     private String conversationId;
-
     @SerializedName("created_at")
     private String createdAt;
     @SerializedName("full_text")
@@ -150,5 +151,33 @@ public class Tweet {
     public Boolean getPossiblySensitiveEditable() {
         return possiblySensitiveEditable;
     }
-    // endregion
+
+    @Override
+    public String toString() {
+        return "Tweet{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", conversationId='" + conversationId + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", fullText='" + fullText + '\'' +
+                ", text='" + text + '\'' +
+                ", displayTextRange=" + Arrays.toString(displayTextRange) +
+                ", source='" + source + '\'' +
+                ", lang='" + lang + '\'' +
+                ", entities=" + entities +
+                ", extendedEntities=" + extendedEntities +
+                ", retweetCount=" + retweetCount +
+                ", favoriteCount=" + favoriteCount +
+                ", replyCount=" + replyCount +
+                ", quoteCount=" + quoteCount +
+                ", isQuoteStatus=" + isQuoteStatus +
+                ", quotedStatusId='" + quotedStatusId + '\'' +
+                ", quotedStatusPermalink=" + quotedStatusPermalink +
+                ", inReplyToStatusId='" + inReplyToStatusId + '\'' +
+                ", inReplyToUserId='" + inReplyToUserId + '\'' +
+                ", inReplyToScreenName='" + inReplyToScreenName + '\'' +
+                ", possiblySensitiveEditable=" + possiblySensitiveEditable +
+                '}';
+        // endregion
+    }
 }

@@ -20,14 +20,14 @@ public class GetUserTest extends AbstractTest {
                     SpecifiedTweetRequest.builder()
                             .tweetId("1232157896453963776")
                             .build()).get();
-            top.toUserTimeline().forEach(this::printUser);
+            top.toUserTimeline().forEach(this::print);
         }
         {
             TopLevel top = client.user().getUsersRetweetedBy(
                     SpecifiedTweetRequest.builder()
                             .tweetId("1232157896453963776")
                             .build()).get();
-            top.toUserTimeline().forEach(this::printUser);
+            top.toUserTimeline().forEach(this::print);
         }
     }
 
@@ -39,7 +39,7 @@ public class GetUserTest extends AbstractTest {
                 .build();
 
         Response<GraphRoot> root = client.user().getUserByScreenName(request);
-        this.printUser(root.get().getData().getUser().getLegacy());
+        print(root.get().getData().getUser().getLegacy());
     }
 
     @Test

@@ -1,13 +1,8 @@
 package net.socialhub.twitter.web;
 
-import net.socialhub.twitter.web.entity.request.GraphRequest;
-import net.socialhub.twitter.web.entity.request.SearchRequest;
+import net.socialhub.twitter.web.entity.group.TweetTimeline;
 import net.socialhub.twitter.web.entity.request.timeline.SearchTimelineRequest;
-import net.socialhub.twitter.web.entity.response.TopLevel;
-import net.socialhub.twitter.web.entity.response.Tweet;
-import net.socialhub.twitter.web.entity.response.User;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
-import net.socialhub.twitter.web.entity.response.graphql.GraphTweet;
 import org.junit.Test;
 
 import java.util.List;
@@ -23,10 +18,7 @@ public class SearchTest extends AbstractTest {
 
         {
             GraphRoot root = client.search().searchTweets(request).get();
-            List<GraphTweet> tweets = root.getTweets();
-
-            tweets.forEach(this::printTweet);
-            System.out.println(tweets.size());
+            print(root.getTweetTimeline());
         }
     }
 

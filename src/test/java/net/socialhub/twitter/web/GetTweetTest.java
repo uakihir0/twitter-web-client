@@ -1,6 +1,7 @@
 package net.socialhub.twitter.web;
 
 import net.socialhub.logger.Logger;
+import net.socialhub.twitter.web.entity.group.TweetTimeline;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.timeline.HomeTimelineRequest;
 import net.socialhub.twitter.web.entity.request.timeline.RecommendTimelineRequest;
@@ -9,7 +10,6 @@ import net.socialhub.twitter.web.entity.request.timeline.UserTimelineRequest;
 import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
-import net.socialhub.twitter.web.entity.response.graphql.GraphTweet;
 import org.junit.Test;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class GetTweetTest extends AbstractTest {
                         .userId("362220012")
                         .build()).get();
 
-        root.getTweets().forEach(this::printTweet);
+        print(root.getTweetTimeline());
     }
 
     @Test
@@ -33,12 +33,11 @@ public class GetTweetTest extends AbstractTest {
                         .userId("362220012")
                         .build()).get();
 
-        root.getTweets().forEach(this::printTweet);
+        print(root.getTweetTimeline());
     }
 
     @Test
     public void testGetUserMediaTimelineCursorTest() {
-
         String cursor;
         {
             GraphRoot root = client.timeline().getUserMediaTimeline(
@@ -47,10 +46,24 @@ public class GetTweetTest extends AbstractTest {
                                     .count(1)
                                     .build())
                     .get();
-            root.getTweets().forEach(this::printTweet);
-            // cursor = top.getBottomCursor();
+
+            TweetTimeline timeline = root.getTweetTimeline();
+            print(timeline);
+
+            cursor = timeline.getCursorBottom();
         }
-        // FIXME
+        {
+            GraphRoot root = client.timeline().getUserMediaTimeline(
+                            UserMediaTimelineRequest.builder()
+                                    .userId("362220012")
+                                    .cursor(cursor)
+                                    .count(1)
+                                    .build())
+                    .get();
+
+            TweetTimeline timeline = root.getTweetTimeline();
+            print(timeline);
+        }
     }
 
     @Test
@@ -60,7 +73,7 @@ public class GetTweetTest extends AbstractTest {
                 .build();
 
         TopLevel top = client.tweet().getTweetConversation(request).get();
-        top.toTweetTimeline().forEach(this::printTweet);
+        top.toTweetTimeline().forEach(this::print);
     }
 
     @Test
@@ -74,8 +87,7 @@ public class GetTweetTest extends AbstractTest {
                                 .build()
                 );
 
-        List<GraphTweet> tweets = root.get().getTweets();
-        tweets.forEach(this::printTweet);
+        print(root.get().getTweetTimeline());
     }
 
     @Test
@@ -89,7 +101,6 @@ public class GetTweetTest extends AbstractTest {
                                 .build()
                 );
 
-        List<GraphTweet> tweets = root.get().getTweets();
-        tweets.forEach(this::printTweet);
+        print(root.get().getTweetTimeline());
     }
 }

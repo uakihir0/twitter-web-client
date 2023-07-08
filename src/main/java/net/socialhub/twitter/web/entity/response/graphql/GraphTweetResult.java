@@ -7,7 +7,7 @@ public class GraphTweetResult {
     @SerializedName("rest_id")
     private String restId;
     @SerializedName("core")
-    private GraphUserResults core;
+    private GraphCore core;
     @SerializedName("legacy")
     private GraphTweet legacy;
 
@@ -16,12 +16,21 @@ public class GraphTweetResult {
         return restId;
     }
 
-    public GraphUserResults getCore() {
+    public GraphCore getCore() {
         return core;
     }
 
     public GraphTweet getLegacy() {
         return legacy;
+    }
+
+    @Override
+    public String toString() {
+        return "GraphTweetResult{" +
+                "restId='" + restId + '\'' +
+                ", core=" + core +
+                ", legacy=" + legacy +
+                '}';
     }
     // endregion
 }

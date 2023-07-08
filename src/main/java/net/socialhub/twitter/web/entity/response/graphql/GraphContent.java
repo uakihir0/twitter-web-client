@@ -9,6 +9,12 @@ public class GraphContent {
     @SerializedName("itemContent")
     private GraphItem itemContent;
 
+    // Cursor
+    @SerializedName("value")
+    private String value;
+    @SerializedName("cursorType")
+    private String cursorType;
+
     // region
     public String getEntryType() {
         return entryType;
@@ -16,6 +22,14 @@ public class GraphContent {
 
     public GraphItem getItemContent() {
         return itemContent;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public String getCursorType() {
+        return cursorType;
     }
     // endregion
 }
