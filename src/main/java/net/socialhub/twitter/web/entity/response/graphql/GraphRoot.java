@@ -79,7 +79,6 @@ public class GraphRoot {
                                     .getUserResults()
                                     .getResult();
 
-                            System.out.println(user.getId());
                             users.put(user.getId(), user);
                             return tweet;
                         }
@@ -109,7 +108,6 @@ public class GraphRoot {
         TweetTimeline timeline = new TweetTimeline();
         timeline.setTweet(tweets);
         timeline.setUser(users);
-        System.out.println(users.size());
 
         timeline.setCursorTop(cursorTop);
         timeline.setCursorBottom(cursorBottom);
