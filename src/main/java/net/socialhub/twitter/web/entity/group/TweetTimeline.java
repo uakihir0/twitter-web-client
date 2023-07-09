@@ -3,34 +3,36 @@ package net.socialhub.twitter.web.entity.group;
 import net.socialhub.twitter.web.entity.response.Tweet;
 import net.socialhub.twitter.web.entity.response.User;
 import net.socialhub.twitter.web.entity.response.graphql.GraphTweet;
+import net.socialhub.twitter.web.entity.response.graphql.GraphTweetResult;
 import net.socialhub.twitter.web.entity.response.graphql.GraphUser;
+import net.socialhub.twitter.web.entity.response.graphql.GraphUserResult;
 
 import java.util.List;
 import java.util.Map;
 
 public class TweetTimeline {
 
-    public List<Tweet> tweet;
+    public List<GraphTweetResult> tweet;
 
-    public Map<String, User> user;
+    public Map<String, GraphUserResult> user;
 
     public String cursorTop;
     public String cursorBottom;
 
     // region
-    public List<Tweet> getTweet() {
+    public List<GraphTweetResult> getTweet() {
         return tweet;
     }
 
-    public void setTweet(List<Tweet> tweet) {
+    public void setTweet(List<GraphTweetResult> tweet) {
         this.tweet = tweet;
     }
 
-    public Map<String, User> getUser() {
+    public Map<String, GraphUserResult> getUser() {
         return user;
     }
 
-    public void setUser(Map<String, User> user) {
+    public void setUser(Map<String, GraphUserResult> user) {
         this.user = user;
     }
 

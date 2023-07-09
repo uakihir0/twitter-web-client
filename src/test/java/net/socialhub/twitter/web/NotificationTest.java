@@ -14,8 +14,5 @@ public class NotificationTest extends AbstractTest {
                 .getMention(GetMentionRequest
                         .builder()
                         .build());
-
-        response.get().toMentionTweetsTimeline()
-                .forEach(this::print);
     }
 }

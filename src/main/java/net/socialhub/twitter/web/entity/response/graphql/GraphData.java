@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 import net.socialhub.twitter.web.entity.response.graphql.request.GraphHomeTimeline;
 import net.socialhub.twitter.web.entity.response.graphql.request.GraphSearchResult;
 import net.socialhub.twitter.web.entity.response.graphql.request.GraphTimelineResult;
-import net.socialhub.twitter.web.entity.response.graphql.request.GraphUserResult;
 
 public class GraphData {
 

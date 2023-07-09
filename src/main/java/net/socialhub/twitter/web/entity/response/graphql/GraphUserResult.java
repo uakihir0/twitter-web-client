@@ -1,10 +1,11 @@
-package net.socialhub.twitter.web.entity.response.graphql.request;
+package net.socialhub.twitter.web.entity.response.graphql;
 
 import com.google.gson.annotations.SerializedName;
 import net.socialhub.twitter.web.entity.response.Profile;
 import net.socialhub.twitter.web.entity.response.User;
 import net.socialhub.twitter.web.entity.response.graphql.GraphUser;
 import net.socialhub.twitter.web.entity.response.graphql.GraphUserTimeline;
+import net.socialhub.twitter.web.entity.response.graphql.request.GraphResult;
 
 public class GraphUserResult {
 

@@ -73,7 +73,6 @@ public class GetTweetTest extends AbstractTest {
                 .build();
 
         TopLevel top = client.tweet().getTweetConversation(request).get();
-        top.toTweetTimeline().forEach(this::print);
     }
 
     @Test

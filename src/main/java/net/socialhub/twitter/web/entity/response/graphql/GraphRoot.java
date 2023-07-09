@@ -8,6 +8,7 @@ import net.socialhub.twitter.web.entity.response.User;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -63,38 +64,24 @@ public class GraphRoot {
                 .collect(toList());
 
         // Get Tweets
-        List<Tweet> tweets = entities.stream()
+        Map<String, GraphUserResult> users = new HashMap<>();
+        List<GraphTweetResult> tweets = entities.stream()
                 .map(it -> {
                     if (it.getEntryId().startsWith("tweet-")) {
-                        GraphTweetResult result = it.getContent()
+                        GraphTweetResult tweet = it.getContent()
                                 .getItemContent()
                                 .getTweetResults()
                                 .getResult();
 
-                        if (result.getLegacy() != null) {
-                            return result.getLegacy();
-                        }
-                    }
-                    return null;
-                })
-                .filter(Objects::nonNull)
-                .collect(toList());
-
-        // Get Tweet's Owner
-        List<User> users =  entities.stream()
-                .map(it -> {
-                    if (it.getEntryId().startsWith("tweet-")) {
-                        GraphTweetResult result = it.getContent()
-                                .getItemContent()
-                                .getTweetResults()
-                                .getResult();
-
-                        if (result.getLegacy() != null) {
-                            return result
+                        if (tweet.getLegacy() != null) {
+                            GraphUserResult user = tweet
                                     .getCore()
                                     .getUserResults()
-                                    .getResult()
-                                    .getLegacy();
+                                    .getResult();
+
+                            System.out.println(user.getId());
+                            users.put(user.getId(), user);
+                            return tweet;
                         }
                     }
                     return null;
@@ -103,7 +90,7 @@ public class GraphRoot {
                 .collect(toList());
 
         // Get Cursor Top
-        String cursorTop =  entities.stream()
+        String cursorTop = entities.stream()
                 .filter(it -> it.getEntryId().startsWith("cursor-top-"))
                 .map(GraphEntry::getContent)
                 .map(GraphContent::getValue)
@@ -111,7 +98,7 @@ public class GraphRoot {
                 .orElse(null);
 
         // Get Cursor Bottom
-        String cursorBottom =  entities.stream()
+        String cursorBottom = entities.stream()
                 .filter(it -> it.getEntryId().startsWith("cursor-bottom-"))
                 .map(GraphEntry::getContent)
                 .map(GraphContent::getValue)
@@ -120,10 +107,9 @@ public class GraphRoot {
 
         // Make Timeline Object
         TweetTimeline timeline = new TweetTimeline();
-
         timeline.setTweet(tweets);
-        timeline.setUser(new HashMap<>());
-        users.forEach(it -> timeline.getUser().put(it.getId(), it));
+        timeline.setUser(users);
+        System.out.println(users.size());
 
         timeline.setCursorTop(cursorTop);
         timeline.setCursorBottom(cursorBottom);

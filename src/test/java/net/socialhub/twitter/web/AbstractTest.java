@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import net.socialhub.twitter.web.entity.group.TweetTimeline;
 import net.socialhub.twitter.web.entity.response.Tweet;
 import net.socialhub.twitter.web.entity.response.User;
+import net.socialhub.twitter.web.entity.response.graphql.GraphTweetResult;
+import net.socialhub.twitter.web.entity.response.graphql.GraphUserResult;
 import net.socialhub.twitter.web.model.Secrets;
 import org.junit.Before;
 
@@ -101,17 +103,17 @@ public class AbstractTest {
         System.out.println();
     }
 
-    public void print(Tweet tweet) {
+    public void print(GraphTweetResult tweet) {
         System.out.println("[Tweet] -----------------------------------");
         System.out.println("ID   : " + tweet.getId());
-        System.out.println("TEXT : " + tweet.getFullText());
+        System.out.println("TEXT : " + tweet.getLegacy().getFullText());
         System.out.println();
     }
 
-    public void print(User user) {
+    public void print(GraphUserResult user) {
         System.out.println("[User] ------------------------------------");
         System.out.println("ID   : " + user.getId());
-        System.out.println("NAME : " + user.getName());
+        System.out.println("NAME : " + user.getLegacy().getName());
         System.out.println();
     }
 }
