@@ -28,6 +28,7 @@ public class GraphRoot {
                     .getHomeTimelineUrt()
                     .getInstructions();
         }
+
         // For BookmarkTimeline
         if (data.getBookmark() != null) {
             instructions = data.getBookmark()
@@ -79,7 +80,7 @@ public class GraphRoot {
                                     .getUserResults()
                                     .getResult();
 
-                            users.put(user.getId(), user);
+                            users.put(user.getRestId(), user);
                             return tweet;
                         }
                     }

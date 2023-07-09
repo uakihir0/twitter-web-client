@@ -3,8 +3,6 @@ package net.socialhub.twitter.web;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.socialhub.twitter.web.entity.group.TweetTimeline;
-import net.socialhub.twitter.web.entity.response.Tweet;
-import net.socialhub.twitter.web.entity.response.User;
 import net.socialhub.twitter.web.entity.response.graphql.GraphTweetResult;
 import net.socialhub.twitter.web.entity.response.graphql.GraphUserResult;
 import net.socialhub.twitter.web.model.Secrets;
@@ -95,7 +93,7 @@ public class AbstractTest {
 
 
     public void print(TweetTimeline timeline) {
-        timeline.getTweet().forEach(this::print);
+        timeline.getTweet().forEach(it -> print(it, timeline));
 
         System.out.println("[Cursor] -----------------------------------");
         System.out.println("Top    : " + timeline.getCursorTop());
@@ -105,15 +103,22 @@ public class AbstractTest {
 
     public void print(GraphTweetResult tweet) {
         System.out.println("[Tweet] -----------------------------------");
-        System.out.println("ID   : " + tweet.getId());
+        System.out.println("ID   : " + tweet.getRestId());
         System.out.println("TEXT : " + tweet.getLegacy().getFullText());
         System.out.println();
     }
 
     public void print(GraphUserResult user) {
         System.out.println("[User] ------------------------------------");
-        System.out.println("ID   : " + user.getId());
+        System.out.println("ID   : " + user.getRestId());
         System.out.println("NAME : " + user.getLegacy().getName());
         System.out.println();
+    }
+
+    public void print(GraphTweetResult tweet, TweetTimeline timeline) {
+        String userId = tweet.getLegacy().getUserId();
+        GraphUserResult user = timeline.getUser().get(userId);
+        print(tweet);
+        print(user);
     }
 }
