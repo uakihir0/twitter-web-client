@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class GraphUserTimeline {
 
     @SerializedName("timeline")
-    private GraphTimeline timeline;
+    private GraphInstructions timeline;
 
     // region
-    public GraphTimeline getTimeline() {
+    public GraphInstructions getTimeline() {
         return timeline;
     }
     // endregion

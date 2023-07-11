@@ -1,10 +1,6 @@
 package net.socialhub.twitter.web.entity.group;
 
-import net.socialhub.twitter.web.entity.response.Tweet;
-import net.socialhub.twitter.web.entity.response.User;
-import net.socialhub.twitter.web.entity.response.graphql.GraphTweet;
 import net.socialhub.twitter.web.entity.response.graphql.GraphTweetResult;
-import net.socialhub.twitter.web.entity.response.graphql.GraphUser;
 import net.socialhub.twitter.web.entity.response.graphql.GraphUserResult;
 
 import java.util.List;

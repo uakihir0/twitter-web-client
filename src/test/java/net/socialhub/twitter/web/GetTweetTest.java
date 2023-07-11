@@ -2,11 +2,13 @@ package net.socialhub.twitter.web;
 
 import net.socialhub.logger.Logger;
 import net.socialhub.twitter.web.entity.group.TweetTimeline;
+import net.socialhub.twitter.web.entity.request.GraphRequest;
 import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.timeline.HomeTimelineRequest;
 import net.socialhub.twitter.web.entity.request.timeline.RecommendTimelineRequest;
 import net.socialhub.twitter.web.entity.request.timeline.UserMediaTimelineRequest;
 import net.socialhub.twitter.web.entity.request.timeline.UserTimelineRequest;
+import net.socialhub.twitter.web.entity.request.tweet.TweetDetailRequest;
 import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.response.TopLevel;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
@@ -67,12 +69,13 @@ public class GetTweetTest extends AbstractTest {
     }
 
     @Test
-    public void testTweetConversation() {
-        SpecifiedTweetRequest request = SpecifiedTweetRequest.builder()
-                .tweetId("1272741649270165504")
+    public void testTweetDetail() {
+        TweetDetailRequest request = TweetDetailRequest.builder()
+                .focalTweetId("1272741649270165504")
                 .build();
 
-        TopLevel top = client.tweet().getTweetConversation(request).get();
+        Response<GraphRoot> root  = client.tweet().getTweetDetail(request);
+        print(root.get().getTweetDetail());
     }
 
     @Test

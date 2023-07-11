@@ -1,10 +1,9 @@
 package net.socialhub.twitter.web.entity.response.graphql;
 
 import com.google.gson.annotations.SerializedName;
+import net.socialhub.twitter.web.entity.group.TweetDetail;
 import net.socialhub.twitter.web.entity.group.TweetTimeline;
 import net.socialhub.twitter.web.entity.other.InstructionType;
-import net.socialhub.twitter.web.entity.response.Tweet;
-import net.socialhub.twitter.web.entity.response.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +18,9 @@ public class GraphRoot {
     @SerializedName("data")
     private GraphData data;
 
+    /**
+     * Get TweetTimeline
+     */
     public TweetTimeline getTweetTimeline() {
         GraphInstruction[] instructions = null;
 
@@ -58,62 +60,138 @@ public class GraphRoot {
             return null;
         }
 
-        List<GraphEntry> entities = Stream.of(instructions)
+        Map<String, GraphUserResult> users = new HashMap<>();
+        List<GraphEntry> entities = extractEntities(instructions);
+
+        // Get Tweets
+        List<GraphTweetResult> tweets = extractTweets(
+                entities, users, "tweet");
+
+        // Get Cursor
+        String cursorTop = extractCursor(
+                entities, "cursor-top");
+        String cursorBottom = extractCursor(
+                entities, "cursor-bottom");
+
+        // Make Timeline Object
+        TweetTimeline timeline = new TweetTimeline();
+        timeline.setTweet(tweets);
+        timeline.setUser(users);
+        timeline.setCursorTop(cursorTop);
+        timeline.setCursorBottom(cursorBottom);
+
+        return timeline;
+    }
+
+    /**
+     * Get TweetDetail
+     */
+    public TweetDetail getTweetDetail() {
+        GraphInstruction[] instructions = null;
+
+        // For TweetDetail
+        if (getData().getTweetDetail() != null) {
+            instructions = getData().getTweetDetail()
+                    .getInstructions();
+        }
+
+        if (instructions == null) {
+            return null;
+        }
+
+        Map<String, GraphUserResult> users = new HashMap<>();
+        List<GraphEntry> entities = extractEntities(instructions);
+
+        // Get Tweets
+        List<GraphTweetResult> tweets = extractTweets(
+                entities, users, "tweet");
+        List<GraphTweetResult> conversations = extractTweets(
+                entities, users, "conversationthread");
+
+        // Make Detail
+        TweetDetail detail = new TweetDetail();
+        detail.setTweet(tweets.get(0));
+        detail.setConversation(conversations);
+        detail.setUser(users);
+
+        return detail;
+    }
+
+    /**
+     * Extract Entities
+     */
+    private List<GraphEntry> extractEntities(
+            GraphInstruction[] instructions
+    ) {
+        return Stream.of(instructions)
                 .filter(it -> it.getType().equals(InstructionType.TimelineAddEntries))
                 .map(GraphInstruction::getEntries)
                 .flatMap(Stream::of)
                 .collect(toList());
+    }
 
-        // Get Tweets
-        Map<String, GraphUserResult> users = new HashMap<>();
-        List<GraphTweetResult> tweets = entities.stream()
-                .map(it -> {
-                    if (it.getEntryId().startsWith("tweet-")) {
-                        GraphTweetResult tweet = it.getContent()
-                                .getItemContent()
-                                .getTweetResults()
-                                .getResult();
+    /**
+     * Extract Tweets
+     */
+    private List<GraphTweetResult> extractTweets(
+            List<GraphEntry> entities,
+            Map<String, GraphUserResult> users,
+            String prefix
+    ) {
+        return entities.stream().map(it -> {
+                    if (it.getEntryId().startsWith(prefix + "-")) {
+                        GraphContent content = it.getContent();
+                        GraphTweetResult tweet = null;
 
-                        if (tweet.getLegacy() != null) {
-                            GraphUserResult user = tweet
-                                    .getCore()
-                                    .getUserResults()
+                        if (content.getItemContent() != null) {
+                            tweet = it.getContent()
+                                    .getItemContent()
+                                    .getTweetResults()
                                     .getResult();
+                        }
 
-                            users.put(user.getRestId(), user);
-                            return tweet;
+                        if (tweet != null) {
+                            if (content.getItems() != null) {
+                                tweet = it.getContent()
+                                        .getItems().get(0)
+                                        .getItem()
+                                        .getItemContent()
+                                        .getTweetResults()
+                                        .getResult();
+                            }
+                        }
+
+                        if (tweet != null) {
+                            if (tweet.getLegacy() != null) {
+                                GraphUserResult user = tweet
+                                        .getCore()
+                                        .getUserResults()
+                                        .getResult();
+
+                                users.put(user.getRestId(), user);
+                                return tweet;
+                            }
                         }
                     }
                     return null;
                 })
                 .filter(Objects::nonNull)
                 .collect(toList());
+    }
 
-        // Get Cursor Top
-        String cursorTop = entities.stream()
-                .filter(it -> it.getEntryId().startsWith("cursor-top-"))
+    /**
+     * Extract Cursor
+     */
+    private String extractCursor(
+            List<GraphEntry> entities,
+            String prefix
+    ) {
+        return entities.stream()
+                .filter(it -> it.getEntryId().startsWith(prefix + "-"))
                 .map(GraphEntry::getContent)
                 .map(GraphContent::getValue)
                 .findFirst()
                 .orElse(null);
-
-        // Get Cursor Bottom
-        String cursorBottom = entities.stream()
-                .filter(it -> it.getEntryId().startsWith("cursor-bottom-"))
-                .map(GraphEntry::getContent)
-                .map(GraphContent::getValue)
-                .findFirst()
-                .orElse(null);
-
-        // Make Timeline Object
-        TweetTimeline timeline = new TweetTimeline();
-        timeline.setTweet(tweets);
-        timeline.setUser(users);
-
-        timeline.setCursorTop(cursorTop);
-        timeline.setCursorBottom(cursorBottom);
-
-        return timeline;
     }
 
     // region

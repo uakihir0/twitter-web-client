@@ -1,15 +1,15 @@
 package net.socialhub.twitter.web.entity.response.graphql.request;
 
 import com.google.gson.annotations.SerializedName;
-import net.socialhub.twitter.web.entity.response.graphql.GraphTimeline;
+import net.socialhub.twitter.web.entity.response.graphql.GraphInstructions;
 
 public class GraphHomeTimeline {
 
     @SerializedName("home_timeline_urt")
-    private GraphTimeline homeTimelineUrt;
+    private GraphInstructions homeTimelineUrt;
 
     // region
-    public GraphTimeline getHomeTimelineUrt() {
+    public GraphInstructions getHomeTimelineUrt() {
         return homeTimelineUrt;
     }
     // endregion

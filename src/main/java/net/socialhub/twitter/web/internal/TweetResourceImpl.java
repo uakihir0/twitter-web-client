@@ -1,15 +1,12 @@
 package net.socialhub.twitter.web.internal;
 
 import net.socialhub.twitter.web.api.TweetResource;
-import net.socialhub.twitter.web.entity.response.Response;
-import net.socialhub.twitter.web.entity.request.SpecifiedTweetRequest;
 import net.socialhub.twitter.web.entity.request.CreateTweetRequest;
-import net.socialhub.twitter.web.entity.response.TopLevel;
+import net.socialhub.twitter.web.entity.request.tweet.TweetDetailRequest;
+import net.socialhub.twitter.web.entity.response.Response;
 import net.socialhub.twitter.web.entity.response.graphql.GraphRoot;
 import net.socialhub.twitter.web.utility.Endpoint;
 import net.socialhub.twitter.web.utility.Session;
-
-import static net.socialhub.twitter.web.utility.Endpoint.TweetConversation;
 
 public class TweetResourceImpl extends AbstractResource implements TweetResource {
 
@@ -17,13 +14,13 @@ public class TweetResourceImpl extends AbstractResource implements TweetResource
         super(session);
     }
 
+
     @Override
-    public Response<TopLevel> getTweetConversation(
-            SpecifiedTweetRequest request
+    public Response<GraphRoot> getTweetDetail(
+            TweetDetailRequest request
     ) {
-        String path = TweetConversation.path()
-                .replace("{tweetId}", request.getTweetId());
-        return get(path, request, TopLevel.class);
+        String path = Endpoint.TweetDetail.path();
+        return graphGet(path, request, GraphRoot.class);
     }
 
     @Override

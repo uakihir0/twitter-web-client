@@ -15,19 +15,28 @@ public class GraphData {
     private GraphSearchResult search;
     @SerializedName("bookmark_timeline_v2")
     private GraphTimelineResult bookmark;
+    @SerializedName("threaded_conversation_with_injections_v2")
+    private GraphInstructions tweetDetail;
 
     // region
     public GraphUserResult getUser() {
         return user;
     }
+
     public GraphHomeTimeline getHome() {
         return home;
     }
+
     public GraphTimelineResult getBookmark() {
         return bookmark;
     }
+
     public GraphSearchResult getSearch() {
         return search;
+    }
+
+    public GraphInstructions getTweetDetail() {
+        return tweetDetail;
     }
     // endregion
 }

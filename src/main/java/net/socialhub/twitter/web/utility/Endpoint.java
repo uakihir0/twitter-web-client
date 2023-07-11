@@ -31,13 +31,6 @@ public enum Endpoint {
     UserMediaTimeline("/graphql/Az0-KW6F-FyYTc2OJmvUhg/UserMedia"),
     TweetDetail("/graphql/TuC3CinYecrqAyqccUyFhw/TweetDetail"),
     Bookmarks("/graphql/ThwoU-Q6_9oZHwxtWdpoPw/Bookmarks"),
-
-    // Deleted Endpoints
-    // UserTimeline("/2/timeline/profile/{userId}.json"),
-    // UserMediaTimeline("/2/timeline/media/{userId}.json"),
-    TweetConversation("/2/timeline/conversation/{tweetId}.json"),
-    // Search("/2/search/adaptive.json"),
-
     // endregion
 
     ;

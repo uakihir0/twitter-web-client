@@ -2,6 +2,7 @@ package net.socialhub.twitter.web;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import net.socialhub.twitter.web.entity.group.TweetDetail;
 import net.socialhub.twitter.web.entity.group.TweetTimeline;
 import net.socialhub.twitter.web.entity.response.graphql.GraphTweetResult;
 import net.socialhub.twitter.web.entity.response.graphql.GraphUserResult;
@@ -91,6 +92,12 @@ public class AbstractTest {
         }
     }
 
+    public void print(TweetDetail tweetDetail) {
+        print(tweetDetail.getTweet());
+
+        System.out.println("[[Conversations]] ---------------------------------");
+        tweetDetail.getConversation().forEach(this::print);
+    }
 
     public void print(TweetTimeline timeline) {
         timeline.getTweet().forEach(it -> print(it, timeline));
