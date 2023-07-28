@@ -140,20 +140,24 @@ public class GraphRoot {
     ) {
         return entities.stream().map(it -> {
                     if (it.getEntryId().startsWith(prefix + "-")) {
-                        GraphContent content = it.getContent();
+                        GraphContent c = it.getContent();
                         GraphTweetResult tweet = null;
 
-                        if (content.getItemContent() != null) {
+                        // For `tweet-`
+                        if (c.getItemContent() != null) {
                             tweet = it.getContent()
                                     .getItemContent()
                                     .getTweetResults()
                                     .getResult();
                         }
 
-                        if (tweet != null) {
-                            if (content.getItems() != null) {
-                                tweet = it.getContent()
-                                        .getItems().get(0)
+                        // For `conversationthread-`
+                        if (tweet == null) {
+                            if (c.getItems() != null &&
+                                    !c.getItems().isEmpty()) {
+
+                                tweet = c.getItems()
+                                        .get(0)
                                         .getItem()
                                         .getItemContent()
                                         .getTweetResults()
