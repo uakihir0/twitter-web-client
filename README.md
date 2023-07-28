@@ -28,13 +28,7 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 
 - [x] /2/timeline/liked_by.json
 - [x] /2/timeline/retweeted_by.json
-- [x] /2/timeline/media/{userId}.json
 - [x] /2/notifications/mentions.json
-
-
-- [x] ~~/2/search/adaptive.json~~ (api deleted)
-- [x] ~~/2/timeline/profile/{userId}.json~~ (api deleted)
-- [x] ~~/2/timeline/conversation/{tweetId}.json~~ (api deleted)
 
 #### GraphQL
 
@@ -51,7 +45,7 @@ This library created with the help of [Nitter](https://github.com/zedeus/nitter)
 - [x] /graphql/{queryId}/Bookmarks
 - [x] /graphql/{queryId}/UserTweets
 - [x] /graphql/{queryId}/UserMedia
-- [ ] /graphql/{queryId}/TweetDetail
+- [x] /graphql/{queryId}/TweetDetail
 - [x] /graphql/{queryId}/SearchTimeline
 
 ## Install
